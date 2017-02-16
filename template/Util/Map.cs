@@ -1,4 +1,4 @@
-﻿﻿using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 using Nez;
@@ -12,8 +12,9 @@ namespace template
         {
             TiledTile ret = null;
 
-            var tile_pos = map.worldToTilePosition(pos);
-            if (tile_pos != null)
+            var tile_pos = map.worldToTilePosition(pos, false);
+
+            if (tile_pos.X > 0 && tile_pos.X < map.width && tile_pos.Y > 0 && tile_pos.Y < map.height)
             {
                 var tilelayer = (TiledTileLayer)map.layers[0];  // FIXME
                 ret = tilelayer.getTile(tile_pos.X, tile_pos.Y);
@@ -34,7 +35,6 @@ namespace template
         public static bool hasCollider(TiledMap map, Vector2 pos)
         {
             var tile = getTileAt(map, pos);
-            var world_pos = tile.getWorldPosition(map);
             var tile_rect = tile.getTileRectangle(map);
             var tile_rectf = new RectangleF(tile_rect.X, tile_rect.Y, tile_rect.Width, tile_rect.Height);
 
