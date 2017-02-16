@@ -7,14 +7,14 @@ using Microsoft.Xna.Framework.Input;
 
 using Nez;
 
-namespace playground
+namespace template
 {
 	/// <summary>
 	/// This is the main type for your game.
 	/// </summary>
 	public class Game1 : Nez.Core
 	{
-		public Game1() : base(windowTitle: "playground") { }
+		public Game1() : base(windowTitle: "") { }
 
 		protected override void Initialize() 
 		{

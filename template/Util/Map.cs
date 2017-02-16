@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Nez;
 using Nez.Tiled;
 
-namespace playground.Util
+namespace template
 {
     class Map
     {

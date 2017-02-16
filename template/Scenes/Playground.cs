@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using Nez.UI;
 using Nez.Tiled;
 
-namespace playground.Scenes
+namespace template
 {
     class Test : Scene
     {
