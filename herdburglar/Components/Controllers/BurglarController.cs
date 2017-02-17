@@ -1,4 +1,4 @@
-﻿﻿using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 using Nez;
@@ -33,9 +33,21 @@ namespace herdburglar.Components.Controllers
             else if (Input.isKeyDown(Keys.S))
                 movement.Y = 1f;
 
+			var anim = entity.getComponent<Sprite<Burglar.Animations>>();
+		
             // Make sure our movement is valid
             if (movement.Length() == 0)
+            {
+				if (anim.isAnimationPlaying(Burglar.Animations.Walk))
+					anim.play(Burglar.Animations.Idle);
+
                 return;
+            }
+
+			anim.flipX = movement.X < 0;
+
+            if (!anim.isAnimationPlaying(Burglar.Animations.Walk))
+				anim.play(Burglar.Animations.Walk);
 
             // Move!
             CollisionResult result;

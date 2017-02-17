@@ -27,6 +27,8 @@ namespace herdburglar
 			load_tiled_map();
 
 			var burglar = new Burglar();
+			burglar.transform.position = new Vector2(Screen.width / 2, Screen.height / 2);
+			addEntity(burglar);
 
             addRenderer<DefaultRenderer>(new DefaultRenderer());
         }
@@ -55,8 +57,6 @@ namespace herdburglar
             var tiledmapComponent = tiledEntity.addComponent(new TiledMapComponent(tiledmap, "collision"));
             tiledmapComponent.physicsLayer = 8;
             tiledmapComponent.setLayersToRender(new string[] { "Tile Layer 1", "Tile Layer 2" });
-
-            var tmc = tiledmapComponent;
         }
         #endregion
     }
