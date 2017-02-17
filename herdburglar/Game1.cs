@@ -21,6 +21,7 @@ namespace herdburglar
 			base.Initialize();
 
 			Window.AllowUserResizing = true;
+			Core.exitOnEscapeKeypress = false;	// HACK: Because mono on linux is obnoxious.
 
 			//Content.RootDirectory = "Content";
 			scene = new Playground();

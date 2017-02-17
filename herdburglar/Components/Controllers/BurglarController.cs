@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using Nez;
 
 using Nez.Sprites;
+using System.Diagnostics;
 
 
 namespace herdburglar.Components.Controllers
@@ -33,6 +34,15 @@ namespace herdburglar.Components.Controllers
             else if (Input.isKeyDown(Keys.S))
                 movement.Y = 1f;
 
+			if (Input.isKeyPressed(Keys.Escape))
+			{
+				#if __MonoCS__
+				Process.GetCurrentProcess().Kill();		// HACK: Linux and escape keypress doesn't work right.
+				#else
+				Core.exit();
+				#endif
+			}
+
 			var anim = entity.getComponent<Sprite<Burglar.Animations>>();
 		
             // Make sure our movement is valid
@@ -53,7 +63,7 @@ namespace herdburglar.Components.Controllers
             CollisionResult result;
             if (mover.move(movement * Time.deltaTime * 150f, out result))
             {
-                Debug.log("Collided.");
+                Nez.Debug.log("Collided.");
             }
         }
     }

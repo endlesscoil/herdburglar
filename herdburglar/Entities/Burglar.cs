@@ -19,6 +19,7 @@ namespace herdburglar
 		}
 
 		private BurglarController controller;
+		private BoxCollider collider;
 		private Sprite<Animations> animation;
 
 		public Burglar()
@@ -33,6 +34,7 @@ namespace herdburglar
 			tag = (int)Tags.Burglar;
 
 			controller = addComponent<BurglarController>();
+
 
 			var texture = scene.content.Load<Texture2D>("sprites/kit_from_firefox");
 			var subtextures = Subtexture.subtexturesFromAtlas(texture, 56, 80);
@@ -51,6 +53,8 @@ namespace herdburglar
 				subtextures[5],
 				subtextures[6]
 			}).setFps(7));
+
+			collider = addComponent<BoxCollider>();
 
 			animation.play(Animations.Idle);
 		}
