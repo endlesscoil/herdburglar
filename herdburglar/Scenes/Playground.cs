@@ -24,18 +24,18 @@ namespace herdburglar
             Core.debugRenderEnabled = true;
 			Transform.shouldRoundPosition = false;
 
-			load_tiled_map();
-
-			var burglar = new Burglar();
-			burglar.transform.position = new Vector2(Screen.width / 2, Screen.height / 2);
-			addEntity(burglar);
-
             addRenderer<DefaultRenderer>(new DefaultRenderer());
         }
 
         public override void onStart()
         {
-            base.onStart();
+			base.onStart();
+
+			load_tiled_map();
+
+			var burglar = new Burglar();
+			burglar.transform.position = new Vector2(Screen.width / 2, Screen.height / 2);
+			addEntity(burglar);
         }
 
         public override void update()
@@ -54,9 +54,28 @@ namespace herdburglar
 
             //content.RootDirectory = "Content";
             var tiledmap = content.Load<TiledMap>(@"maps/test");
-            var tiledmapComponent = tiledEntity.addComponent(new TiledMapComponent(tiledmap, "collision"));
+            var tiledmapComponent = tiledEntity.addComponent(new TiledMapComponent(tiledmap, "collisionxxxxxxx"));
             tiledmapComponent.physicsLayer = 8;
-            tiledmapComponent.setLayersToRender(new string[] { "Tile Layer 1", "Tile Layer 2" });
+            tiledmapComponent.setLayersToRender(new string[] { "Tile Layer 1" });
+            tiledmapComponent.renderLayer = 10;
+
+            var tiledmapComponentDetail = tiledEntity.addComponent(new TiledMapComponent(tiledmap));
+            tiledmapComponentDetail.setLayersToRender(new string[] { "Tile Layer 2" });
+            tiledmapComponentDetail.renderLayer = -1;
+
+			var col_layer = (TiledObjectGroup)tiledmap.getObjectGroup("collision");
+
+			for(var i = 0; i < col_layer.objects.Length; i++)
+			{
+				var o = col_layer.objects[i];
+				Debug.log("o={0}", col_layer.objects[i]);
+
+				var c = new BoxCollider(o.x, o.y, o.width, o.height);
+				c.physicsLayer = tiledmapComponent.physicsLayer;
+				c.entity = tiledEntity;
+
+				Physics.addCollider(c);
+			}
         }
         #endregion
     }

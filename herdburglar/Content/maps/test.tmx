@@ -55,6 +55,13 @@
 0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup name="collision">
+  <object id="5" x="151" y="231.5" width="16" height="21"/>
+  <object id="8" x="217" y="296.5" width="11" height="20.5"/>
+  <object id="9" x="536" y="487" width="14" height="21"/>
+  <object id="10" x="218" y="553.5" width="9" height="20.5"/>
+  <object id="12" x="255" y="567" width="255" height="7"/>
+ </objectgroup>
  <objectgroup name="Object Layer 1" opacity="0.64">
   <object id="1" name="Start" type="BurglarSpawn" x="64" y="64" width="64" height="64"/>
   <object id="2" type="CowSpawn" x="320" y="320" width="64" height="64"/>
