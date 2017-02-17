@@ -51,7 +51,7 @@ namespace herdburglar
             var tiledEntity = createEntity("tiled-map-entity");
 
             //content.RootDirectory = "Content";
-            var tiledmap = content.Load<TiledMap>(@"maps/test.xnb");
+            var tiledmap = content.Load<TiledMap>(@"maps/test");
             var tiledmapComponent = tiledEntity.addComponent(new TiledMapComponent(tiledmap, "collision"));
             tiledmapComponent.physicsLayer = 8;
             tiledmapComponent.setLayersToRender(new string[] { "Tile Layer 1", "Tile Layer 2" });
