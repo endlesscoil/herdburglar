@@ -1,0 +1,15 @@
+﻿<Properties StartupItem="herdburglar/herdburglar.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="herdburglar/Scenes/Playground.cs">
+    <Files>
+      <File FileName="herdburglar/Scenes/Playground.cs" Line="54" Column="1" />
+      <File FileName="herdburglar/Game1.cs" Line="17" Column="56" />
+      <File FileName="herdburglar/Tags.cs" Line="5" Column="18" />
+      <File FileName="herdburglar/Program.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="64" tileheight="64" nextobjectid="4">
+ <tileset firstgid="1" name="kenny-rpgpack" tilewidth="64" tileheight="64" tilecount="260" columns="20">
+  <image source="../tilesets/RPGpack_sheet.png" width="1280" height="832"/>
+  <tile id="220">
+   <objectgroup draworder="index">
+    <object id="3" x="23" y="58">
+     <polyline points="0,0 3,-33 11.6667,-33 16.3333,0.333333 12,4 5,4 0.333333,0.666667"/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="221">
+   <objectgroup draworder="index">
+    <object id="1" x="25.5" y="59.75">
+     <polyline points="0,0 2,-28.5 9,-28.25 11.25,0 7.5,2.5 3.25,2.5 0,0"/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="226">
+   <objectgroup draworder="index">
+    <object id="1" x="0.25" y="52" width="63.5" height="11.75"/>
+   </objectgroup>
+  </tile>
+  <tile id="246">
+   <objectgroup draworder="index">
+    <object id="1" x="0.25" y="51.5" width="63.5" height="12.25"/>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <layer name="Tile Layer 1" width="10" height="10">
+  <data encoding="csv">
+22,22,22,22,22,22,22,22,22,22,
+22,22,22,22,22,22,22,22,22,22,
+22,22,22,22,22,22,22,22,22,22,
+22,22,22,22,22,22,22,22,22,22,
+22,22,22,22,22,22,22,22,22,22,
+22,22,22,22,22,22,22,22,22,22,
+22,22,22,22,22,22,22,22,22,22,
+22,22,22,22,6,7,7,8,22,22,
+22,22,22,22,46,47,47,48,22,22,
+22,22,22,22,22,22,22,22,22,22
+</data>
+ </layer>
+ <layer name="Tile Layer 2" width="10" height="10">
+  <data encoding="csv">
+0,0,0,0,0,0,0,221,221,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,201,0,0,0,0,0,0,0,
+0,0,221,202,0,0,0,0,0,0,
+0,0,0,222,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,205,0,
+0,0,0,206,0,0,0,0,225,0,
+0,0,0,226,227,227,227,247,0,0,
+0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup name="Object Layer 1" opacity="0.64">
+  <object id="1" name="Start" type="BurglarSpawn" x="64" y="64" width="64" height="64"/>
+  <object id="2" type="CowSpawn" x="320" y="320" width="64" height="64"/>
+  <object id="3" type="CowSpawn" x="448" y="192" width="64" height="64"/>
+ </objectgroup>
+</map>
