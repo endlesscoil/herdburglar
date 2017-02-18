@@ -14,6 +14,7 @@ namespace herdburglar
 	/// </summary>
 	public class Game1 : Nez.Core
 	{
+        public Game1() : base(windowTitle: "herdburglar") { }
 
 		protected override void Initialize() 
 		{

@@ -36,6 +36,10 @@ namespace herdburglar
 			var burglar = new Burglar();
 			burglar.transform.position = new Vector2(Screen.width / 3, Screen.height / 3);
 			addEntity(burglar);
+
+            var cow = new Cow(orientation: Cow.Orientation.Up);
+            cow.transform.position = new Vector2(300, 200);
+            addEntity(cow);
         }
 
         public override void update()

@@ -35,7 +35,6 @@ namespace herdburglar
 
 			controller = addComponent<BurglarController>();
 
-
 			var texture = scene.content.Load<Texture2D>("sprites/kit_from_firefox");
 			var subtextures = Subtexture.subtexturesFromAtlas(texture, 56, 80);
 
@@ -55,7 +54,7 @@ namespace herdburglar
 			}).setFps(7));
 
 			collider = addComponent(new BoxCollider(-16, -24, 32, 64));
-
+            
 			animation.play(Animations.Idle);
 		}
 
