@@ -10,9 +10,9 @@
 
 #-------------------------------- References --------------------------------#
 
-/reference:../../../../libs/Nez/Nez.PipelineImporter/bin/Debug/Ionic.ZLib.dll
-/reference:../../../../libs/Nez/Nez.PipelineImporter/bin/Debug/Nez.dll
-/reference:../../../../libs/Nez/Nez.PipelineImporter/bin/Debug/Nez.PipelineImporter.dll
+/reference:..\..\libs\Ionic.ZLib.dll
+/reference:..\..\libs\Nez.dll
+/reference:..\..\libs\Nez.PipelineImporter.dll
 
 #---------------------------------- Content ---------------------------------#
 
