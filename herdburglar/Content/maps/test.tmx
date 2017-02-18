@@ -64,9 +64,17 @@
   <object id="13" x="471.788" y="48.6667" width="15.4545" height="12.6667"/>
   <object id="14" x="535.939" y="49.6667" width="15.2727" height="12"/>
  </objectgroup>
- <objectgroup name="Object Layer 1" opacity="0.64">
+ <objectgroup name="spawns" opacity="0.64">
   <object id="1" name="Start" type="BurglarSpawn" x="64" y="64" width="64" height="64"/>
-  <object id="2" type="CowSpawn" x="320" y="320" width="64" height="64"/>
-  <object id="3" type="CowSpawn" x="448" y="192" width="64" height="64"/>
+  <object id="2" type="CowSpawn" x="320" y="320" width="64" height="64">
+   <properties>
+    <property name="orientation" value="Right"/>
+   </properties>
+  </object>
+  <object id="3" type="CowSpawn" x="448" y="192" width="64" height="64">
+   <properties>
+    <property name="orientation" value="Up"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

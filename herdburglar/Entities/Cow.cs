@@ -22,6 +22,25 @@ namespace herdburglar
             Right
         }
 
+        public static Orientation getOrientationFromName(string name)
+        {
+            switch (name)
+            {
+                case "Up":
+                    return Orientation.Up;
+
+                case "Left":
+                    return Orientation.Left;
+
+                case "Down":
+                    return Orientation.Down;
+
+                case "Right":
+                default:
+                    return Orientation.Right;
+            }
+        }
+
         public enum Animations
         {
             FacingUpIdle,

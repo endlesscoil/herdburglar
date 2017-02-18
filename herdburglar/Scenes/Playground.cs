@@ -32,14 +32,6 @@ namespace herdburglar
 			base.onStart();
 
 			load_tiled_map();
-
-			var burglar = new Burglar();
-			burglar.transform.position = new Vector2(Screen.width / 3, Screen.height / 3);
-			addEntity(burglar);
-
-            var cow = new Cow(orientation: Cow.Orientation.Up);
-            cow.transform.position = new Vector2(300, 200);
-            addEntity(cow);
         }
 
         public override void update()
@@ -55,8 +47,7 @@ namespace herdburglar
 		private void load_tiled_map()
         {
             var tiledEntity = createEntity("tiled-map-entity");
-
-            //content.RootDirectory = "Content";
+            
             var tiledmap = content.Load<TiledMap>(@"maps/test");
             var tiledmapComponent = tiledEntity.addComponent(new TiledMapComponent(tiledmap, "collisionxxxxxxx"));
             tiledmapComponent.physicsLayer = 8;
@@ -72,7 +63,6 @@ namespace herdburglar
 			for(var i = 0; i < col_layer.objects.Length; i++)
 			{
 				var o = col_layer.objects[i];
-				Debug.log("o={0}", col_layer.objects[i]);
 
 				var c = new BoxCollider(o.x, o.y, o.width, o.height);
 				c.physicsLayer = tiledmapComponent.physicsLayer;
@@ -80,6 +70,34 @@ namespace herdburglar
 
 				Physics.addCollider(c);
 			}
+
+            var spawn_layer = (TiledObjectGroup)tiledmap.getObjectGroup("spawns");
+            for (var i = 0; i < spawn_layer.objects.Length; i++)
+            {
+                var o = spawn_layer.objects[i];
+                
+                switch (o.type)
+                {
+                    case "BurglarSpawn":
+                        var burglar = new Burglar();
+                        burglar.transform.position = new Vector2(o.position.X + o.width / 2, o.position.Y + o.height / 2);
+                        addEntity(burglar);
+                        break;
+
+                    case "CowSpawn":
+                        var orientation = Cow.Orientation.Right;
+                        if (o.properties.ContainsKey("orientation"))
+                            orientation = Cow.getOrientationFromName(o.properties["orientation"]);
+
+                        var cow = new Cow(orientation: orientation);
+                        cow.transform.position = new Vector2(o.position.X + o.width / 2, o.position.Y + o.height / 2);
+                        addEntity(cow);
+                        break;
+
+                    default:
+                        break;
+                }
+            }
         }
         #endregion
     }
