@@ -34,7 +34,7 @@ namespace herdburglar
 			load_tiled_map();
 
 			var burglar = new Burglar();
-			burglar.transform.position = new Vector2(Screen.width / 2, Screen.height / 2);
+			burglar.transform.position = new Vector2(Screen.width / 3, Screen.height / 3);
 			addEntity(burglar);
         }
 

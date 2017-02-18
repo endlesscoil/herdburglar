@@ -54,7 +54,7 @@ namespace herdburglar
 				subtextures[6]
 			}).setFps(7));
 
-			collider = addComponent<BoxCollider>();
+			collider = addComponent(new BoxCollider(-16, -24, 32, 64));
 
 			animation.play(Animations.Idle);
 		}
