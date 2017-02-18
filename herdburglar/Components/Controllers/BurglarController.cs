@@ -59,6 +59,8 @@ namespace herdburglar.Components.Controllers
             if (!anim.isAnimationPlaying(Burglar.Animations.Walk))
 				anim.play(Burglar.Animations.Walk);
 
+            Nez.Debug.log("new pos={0}", entity.transform.position);
+
             // Move!
             CollisionResult result;
             if (mover.move(movement * Time.deltaTime * 150f, out result))

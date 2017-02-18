@@ -4,8 +4,8 @@ namespace herdburglar
 {
 	public enum Tags
 	{
-		Burglar = 0,
-		Cow = 1
+		Burglar = 1,
+		Cow = 2
 	}
 }
 

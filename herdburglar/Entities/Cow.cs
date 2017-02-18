@@ -57,11 +57,53 @@ namespace herdburglar
         private Sprite<Animations> animation = null;
         private BoxCollider collider = null;
 
-        private Orientation orientation = Orientation.Right;
+        private Orientation _orientation = Orientation.Right;
+        public Orientation orientation
+        {
+            get
+            {
+                return _orientation;
+            }
+
+            set
+            {
+                _orientation = orientation;
+
+                if (animation != null)
+                {
+                    switch (orientation)
+                    {
+                        case Orientation.Up:
+                            setColliderDetails(-12, -20, 26, 64);
+                            animation.play(Animations.FacingUpIdle);
+                            break;
+
+                        case Orientation.Left:
+                            setColliderDetails(-40, -16, 64, 40);
+                            animation.play(Animations.FacingLeftIdle);
+                            break;
+
+                        case Orientation.Down:
+                            setColliderDetails(-12, -16, 26, 56);
+                            animation.play(Animations.FacingDownIdle);
+                            break;
+
+                        case Orientation.Right:
+                            setColliderDetails(-24, -16, 64, 40);
+                            animation.play(Animations.FacingRightIdle);
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+        
 
         public Cow(Orientation orientation = Orientation.Right)
 		{
-            this.orientation = orientation;
+            _orientation = orientation;
 		}
 
 		public override void onAddedToScene()
@@ -130,7 +172,7 @@ namespace herdburglar
 
             collider = addComponent<BoxCollider>();
 
-            setOrientation(orientation);
+            this.orientation = orientation;
         }
 
 		public override void onRemovedFromScene()
@@ -142,40 +184,6 @@ namespace herdburglar
 		{
 			base.update();
 		}
-
-        public void setOrientation(Orientation orientation)
-        {
-            this.orientation = orientation;
-
-            if (animation != null)
-            {
-                switch (orientation)
-                {
-                    case Orientation.Up:
-                        setColliderDetails(-12, -20, 26, 64);
-                        animation.play(Animations.FacingUpIdle);
-                        break;
-
-                    case Orientation.Left:
-                        setColliderDetails(-40, -16, 64, 40);
-                        animation.play(Animations.FacingLeftIdle);
-                        break;
-
-                    case Orientation.Down:
-                        setColliderDetails(-12, -16, 26, 56);
-                        animation.play(Animations.FacingDownIdle);
-                        break;
-
-                    case Orientation.Right:
-                        setColliderDetails(-24, -16, 64, 40);
-                        animation.play(Animations.FacingRightIdle);
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-        }
 
         private void setColliderDetails(int x, int y, int width, int height)
         {

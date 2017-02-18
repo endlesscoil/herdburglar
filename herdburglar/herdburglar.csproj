@@ -42,6 +42,7 @@
     <Compile Include="Components\Controllers\CowController.cs" />
     <Compile Include="Entities\Burglar.cs" />
     <Compile Include="Entities\Cow.cs" />
+    <Compile Include="Entities\Idol.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -68,7 +68,7 @@
   <object id="1" name="Start" type="BurglarSpawn" x="64" y="64" width="64" height="64"/>
   <object id="2" type="CowSpawn" x="320" y="320" width="64" height="64">
    <properties>
-    <property name="orientation" value="Right"/>
+    <property name="orientation" value="Left"/>
    </properties>
   </object>
   <object id="3" type="CowSpawn" x="448" y="192" width="64" height="64">
