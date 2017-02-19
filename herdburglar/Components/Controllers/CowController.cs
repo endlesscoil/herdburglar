@@ -54,6 +54,8 @@ namespace herdburglar.Components.Controllers
                         {
                             var color = distance < dangerDistance ? Color.Red : Color.Yellow;
                             Debug.drawLine(entity.transform.position, burglar[0].transform.position, color, 0.5f);
+
+                            // TODO: Do something here for alert/danger.
                         }
                     }
                 }
