@@ -106,6 +106,12 @@ namespace herdburglar
                         addEntity(cow);
                         break;
 
+                    case "IdolSpawn":
+                        var idol = new Idol();
+                        idol.transform.position = objPosition;
+                        addEntity(idol);
+                        break;
+
                     default:
                         break;
                 }

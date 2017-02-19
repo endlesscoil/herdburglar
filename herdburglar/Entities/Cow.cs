@@ -118,6 +118,9 @@ namespace herdburglar
 			tag = (int)Tags.Cow;
             controller = addComponent<CowController>();
             collider = addComponent<BoxCollider>();
+
+            setupAnimations();
+            this.orientation = orientation;     // HACK
         }
 
 		public override void onRemovedFromScene()
