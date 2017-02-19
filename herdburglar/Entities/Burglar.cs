@@ -12,49 +12,36 @@ namespace herdburglar
 {
 	public class Burglar : Entity
 	{
-		public enum Animations
+        #region Enums
+        public enum Animations
 		{
 			Idle,
 			Walk
 		}
+        #endregion
 
-		private BurglarController controller;
+        private BurglarController controller;
 		private BoxCollider collider;
 		private Sprite<Animations> animation;
 
-		public Burglar()
+        #region Public
+        public Burglar()
 		{
 
 		}
+        #endregion
 
-		public override void onAddedToScene()
+        #region Events
+        public override void onAddedToScene()
 		{
 			base.onAddedToScene();
 
 			tag = (int)Tags.Burglar;
 
 			controller = addComponent<BurglarController>();
+            collider = addComponent(new BoxCollider(-16, -24, 32, 64));
 
-			var texture = scene.content.Load<Texture2D>("sprites/kit_from_firefox");
-			var subtextures = Subtexture.subtexturesFromAtlas(texture, 56, 80);
-
-			animation = addComponent(new Sprite<Animations>(subtextures[0]));
-			animation.addAnimation(Animations.Idle, new SpriteAnimation(new List<Subtexture>()
-			{
-				subtextures[0],
-				subtextures[1],
-				subtextures[2]
-			}).setFps(3));
-
-			animation.addAnimation(Animations.Walk, new SpriteAnimation(new List<Subtexture>()
-			{
-				subtextures[4],
-				subtextures[5],
-				subtextures[6]
-			}).setFps(7));
-
-			collider = addComponent(new BoxCollider(-16, -24, 32, 64));
-            
+            setupAnimations();
 			animation.play(Animations.Idle);
 		}
 
@@ -67,5 +54,29 @@ namespace herdburglar
 		{
 			base.update();
 		}
-	}
+        #endregion
+
+        #region Private
+        private void setupAnimations()
+        {
+            var texture = scene.content.Load<Texture2D>("sprites/kit_from_firefox");
+            var subtextures = Subtexture.subtexturesFromAtlas(texture, 56, 80);
+
+            animation = addComponent(new Sprite<Animations>(subtextures[0]));
+            animation.addAnimation(Animations.Idle, new SpriteAnimation(new List<Subtexture>()
+            {
+                subtextures[0],
+                subtextures[1],
+                subtextures[2]
+            }).setFps(3));
+
+            animation.addAnimation(Animations.Walk, new SpriteAnimation(new List<Subtexture>()
+            {
+                subtextures[4],
+                subtextures[5],
+                subtextures[6]
+            }).setFps(7));
+        }
+        #endregion
+    }
 }

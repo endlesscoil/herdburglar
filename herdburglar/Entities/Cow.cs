@@ -14,31 +14,13 @@ namespace herdburglar
 {
 	public class Cow : Entity
 	{
+        #region Enums
         public enum Orientation
         {
             Up,
             Left,
             Down,
             Right
-        }
-
-        public static Orientation getOrientationFromName(string name)
-        {
-            switch (name)
-            {
-                case "Up":
-                    return Orientation.Up;
-
-                case "Left":
-                    return Orientation.Left;
-
-                case "Down":
-                    return Orientation.Down;
-
-                case "Right":
-                default:
-                    return Orientation.Right;
-            }
         }
 
         public enum Animations
@@ -52,18 +34,17 @@ namespace herdburglar
             FacingRightIdle,
             FacingRightWalk
         }
+        #endregion
 
         private CowController controller = null;
         private Sprite<Animations> animation = null;
         private BoxCollider collider = null;
-
         private Orientation _orientation = Orientation.Right;
+
+        #region Properties
         public Orientation orientation
         {
-            get
-            {
-                return _orientation;
-            }
+            get { return _orientation; }
 
             set
             {
@@ -99,21 +80,60 @@ namespace herdburglar
                 }
             }
         }
-        
+        #endregion
 
+        #region Static functions
+        public static Orientation getOrientationFromName(string name)
+        {
+            switch (name)
+            {
+                case "Up":
+                    return Orientation.Up;
+
+                case "Left":
+                    return Orientation.Left;
+
+                case "Down":
+                    return Orientation.Down;
+
+                case "Right":
+                default:
+                    return Orientation.Right;
+            }
+        }
+        #endregion
+
+        #region Public
         public Cow(Orientation orientation = Orientation.Right)
 		{
             _orientation = orientation;
 		}
+        #endregion
 
-		public override void onAddedToScene()
+        #region Events
+        public override void onAddedToScene()
 		{
 			base.onAddedToScene();
 
 			tag = (int)Tags.Cow;
-
             controller = addComponent<CowController>();
+            collider = addComponent<BoxCollider>();
+        }
 
+		public override void onRemovedFromScene()
+		{
+			base.onRemovedFromScene();
+		}
+
+		public override void update()
+		{
+			base.update();
+		}
+        #endregion
+
+        #region Private
+        private void setupAnimations()
+        {
             var texture = scene.content.Load<Texture2D>("sprites/cow_walk");
             var subtextures = Subtexture.subtexturesFromAtlas(texture, 128, 128);
 
@@ -169,21 +189,7 @@ namespace herdburglar
                 subtextures[3*4+2],
                 subtextures[3*4+3]
             }));
-
-            collider = addComponent<BoxCollider>();
-
-            this.orientation = orientation;
         }
-
-		public override void onRemovedFromScene()
-		{
-			base.onRemovedFromScene();
-		}
-
-		public override void update()
-		{
-			base.update();
-		}
 
         private void setColliderDetails(int x, int y, int width, int height)
         {
@@ -191,5 +197,6 @@ namespace herdburglar
             collider.setHeight(height);
             collider.localOffset = new Vector2(x + width / 2, y + height / 2);
         }
-	}
+        #endregion
+    }
 }
