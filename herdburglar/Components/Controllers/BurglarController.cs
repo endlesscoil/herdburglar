@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 namespace herdburglar.Components.Controllers
 {
-    class BurglarController : Component, IUpdatable
+    class BurglarController : Component, IUpdatable, ITriggerListener
     {
         private Mover mover;
 
@@ -65,6 +65,23 @@ namespace herdburglar.Components.Controllers
             {
                 Nez.Debug.log("Collided.");
             }
+        }
+
+
+        void ITriggerListener.onTriggerEnter(Collider other, Collider self)
+        {
+            if (other.entity.tag == (int)Tags.Idol)
+            {
+                Nez.Debug.log("Got golden idol!");
+
+                // NOTE: Why does this crash shit?
+                //other.entity.destroy();
+            }
+        }
+
+        void ITriggerListener.onTriggerExit(Collider other, Collider local)
+        {
+
         }
     }
 }
