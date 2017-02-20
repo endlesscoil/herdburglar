@@ -1,11 +1,10 @@
 ﻿<Properties StartupItem="herdburglar/herdburglar.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="herdburglar/Scenes/Playground.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="herdburglar/Components/Controllers/CowController.cs">
     <Files>
-      <File FileName="herdburglar/Scenes/Playground.cs" Line="54" Column="1" />
-      <File FileName="herdburglar/Game1.cs" Line="17" Column="56" />
-      <File FileName="herdburglar/Tags.cs" Line="5" Column="18" />
-      <File FileName="herdburglar/Program.cs" Line="1" Column="1" />
+      <File FileName="herdburglar/Scenes/Playground.cs" Line="57" Column="37" />
+      <File FileName="herdburglar/Components/Controllers/BurglarController.cs" Line="79" Column="14" />
+      <File FileName="herdburglar/Components/Controllers/CowController.cs" Line="30" Column="10" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
