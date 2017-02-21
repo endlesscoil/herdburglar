@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using Nez.UI;
 using Nez.Tiled;
+using Nez.Timers;
 
 namespace herdburglar
 {
@@ -23,6 +24,12 @@ namespace herdburglar
 
             Core.debugRenderEnabled = true;
 			Transform.shouldRoundPosition = false;
+
+            // NOTE: this was an attempt to fix the lag issue when first scheduling something.
+            //Pool<ITimer>.warmCache(10);
+
+            // HACK: Fix lag spike associated with launching the first scheduled task
+            Core.schedule(0.5f, timer => Nez.Debug.log("Scene started!"));	// NOTE: Does not fix lag spike with just {}
 
             addRenderer(new DefaultRenderer());
         }
