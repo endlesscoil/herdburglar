@@ -8,7 +8,7 @@ using Nez;
 
 namespace herdburglar.Components.Controllers
 {
-    class IdolController : Component, ITriggerListener
+    class IdolController : Component
     {
         private BoxCollider collider;
 
@@ -20,24 +20,6 @@ namespace herdburglar.Components.Controllers
             collider.isTrigger = true;
 
             entity.addComponent(collider);
-        }
-
-        void ITriggerListener.onTriggerEnter(Collider other, Collider self)
-        {
-            if (other.entity.tag == (int)Tags.Burglar)
-            {
-                Debug.log("Idol picked up by burglar!");
-
-                // TODO: game win, etc.
-
-                // NOTE: Why does this crash shit?
-                //self.entity.destroy();
-            }
-        }
-
-        void ITriggerListener.onTriggerExit(Collider other, Collider local)
-        {
-
         }
     }
 }

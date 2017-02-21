@@ -74,8 +74,8 @@ namespace herdburglar.Components.Controllers
             {
                 Nez.Debug.log("Got golden idol!");
 
-                // NOTE: Why does this crash shit?
-                //other.entity.destroy();
+				// NOTE: Works okay, weird jumpiness, though.
+				Core.schedule(0.5f, timer => other.entity.destroy());
             }
         }
 
