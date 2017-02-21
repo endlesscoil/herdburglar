@@ -29,7 +29,7 @@ namespace herdburglar.Components.Controllers
 		}
 
         private Cow cow = null;
-        private float fovAngle = MathHelper.Pi / 4; // 90 degrees
+        private float fovAngle = MathHelper.Pi / 8; // 90 degrees
         private float _computedAngle;
         private float alertDistance = 250f;
         private float dangerDistance = 175;
@@ -51,9 +51,7 @@ namespace herdburglar.Components.Controllers
 
 			// Draw facing indicator
 			if (Core.debugRenderEnabled)
-			{
 				Debug.drawLine(entity.transform.position, entity.transform.position + ((facingDirection + headDirection) * 100), Color.Blue, 0.5f);
-			}
 
         	// Find the burglar
             var burglar = entity.scene.findEntitiesWithTag((int)Tags.Burglar);
@@ -89,13 +87,14 @@ namespace herdburglar.Components.Controllers
 
 		private Vector2 getHeadDirection(Entity target)
 		{
-			var facingDirection = orientationToFacingDirection[cow.orientation];
 			Vector2 newDirection;
-			HeadRotation rotation = HeadRotation.None;
 
+			var facingDirection = orientationToFacingDirection[cow.orientation];
+			var rotation = HeadRotation.None;
 			var target_pos = target.transform.position;
 			var pos = entity.transform.position;
 
+			// Determine which direction the head should rotate given our position relative to the target.
 			switch (cow.orientation) {
 				case Cow.Orientation.Up:
 					rotation = target_pos.X < pos.X ? HeadRotation.Left : HeadRotation.Right;
@@ -118,18 +117,13 @@ namespace herdburglar.Components.Controllers
 					break;
 			}
 
+			// Rotate the head direction.
 			if (rotation == HeadRotation.Right || rotation == HeadRotation.Up)
-			{
 				newDirection = new Vector2(-facingDirection.Y, facingDirection.X);
-			}
 			else if (rotation == HeadRotation.Left || rotation == HeadRotation.Down)
-			{
 				newDirection = new Vector2(facingDirection.Y, -facingDirection.X);
-			}
 			else
-			{
 				newDirection = facingDirection;
-			}
 
 			return newDirection;
 		}
