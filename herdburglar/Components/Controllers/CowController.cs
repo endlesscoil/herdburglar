@@ -77,6 +77,7 @@ namespace herdburglar.Components.Controllers
                             	Debug.drawLine(entity.transform.position, burglar[0].transform.position, color, 0.5f);
 
 							headDirection = getHeadDirection(burglar[0]);
+                            entity.getComponent<AlertHerd>().alert();
 
                             // TODO: Do something here for alert/danger.
                         }

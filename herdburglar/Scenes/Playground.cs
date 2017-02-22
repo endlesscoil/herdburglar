@@ -110,6 +110,7 @@ namespace herdburglar
 
                         var cow = new Cow(orientation: orientation);
                         cow.transform.position = objPosition;
+                        cow.name = obj.name;
                         addEntity(cow);
                         break;
 

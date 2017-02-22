@@ -48,6 +48,7 @@
     <Compile Include="Scenes\Playground.cs" />
     <Compile Include="Tags.cs" />
     <Compile Include="Util\Map.cs" />
+    <Compile Include="Components\AlertHerd.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">

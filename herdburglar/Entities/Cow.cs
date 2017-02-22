@@ -37,6 +37,7 @@ namespace herdburglar
         #endregion
 
         private CowController controller = null;
+        private AlertHerd alerter = null;
         private Sprite<Animations> animation = null;
         private BoxCollider collider = null;
         private Orientation _orientation = Orientation.Right;
@@ -118,6 +119,7 @@ namespace herdburglar
 			tag = (int)Tags.Cow;
             controller = addComponent<CowController>();
             collider = addComponent<BoxCollider>();
+            alerter = addComponent<AlertHerd>();
 
             setupAnimations();
             this.orientation = orientation;     // HACK
