@@ -24,7 +24,7 @@ class AlertHerd : Component
             return;
 
         if (Core.debugRenderEnabled)
-            Debug.drawHollowBox(entity.transform.position, (int)alertRadius, Color.PaleVioletRed, alertTime);
+            Debug.drawHollowBox(entity.transform.position, (int)alertRadius*2, Color.PaleVioletRed, alertTime);
 
         alerted = true;
         Core.schedule(alertTime, timer => alerted = false);
