@@ -75,7 +75,8 @@ namespace herdburglar.Components.Controllers
                 Nez.Debug.log("Got golden idol!");
 
 				// NOTE: Works okay, weird jumpiness, though.
-				Core.schedule(0.5f, timer => other.entity.destroy());
+                other.entity.enabled = false;
+				Core.schedule(1f, timer => other.entity.destroy());
             }
         }
 

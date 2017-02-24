@@ -18,9 +18,10 @@ namespace herdburglar
         public enum Orientation
         {
             Up,
-            Left,
+            Right,
             Down,
-            Right
+            Left,
+            None
         }
 
         public enum Animations
@@ -49,7 +50,7 @@ namespace herdburglar
 
             set
             {
-                _orientation = orientation;
+                _orientation = value;
 
                 if (animation != null)
                 {

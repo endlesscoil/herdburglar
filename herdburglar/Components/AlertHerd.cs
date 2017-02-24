@@ -2,46 +2,57 @@
 
 using Nez;
 
-class AlertHerd : Component
+
+namespace herdburglar.Components.Controllers
 {
-    private float alertTime = 5f;
-    private float alertRadius = 150f;
-    private float propagationTime = 0.25f;
-
-    private bool alerted = false;
-
-    public override void onAddedToEntity ()
+    class AlertHerd : Component
     {
-        base.onAddedToEntity ();
-    }
+        private float alertTime = 2f;
+        private float alertRadius = 150f;
+        private float propagationTime = 0.25f;
 
-    public void alert(int level = 0, int max = 1)
-    {
-        if (level > max)
-            return;
+        private bool alerted = false;
 
-        if (alerted)
-            return;
-
-        if (Core.debugRenderEnabled)
-            Debug.drawHollowBox(entity.transform.position, (int)alertRadius*2, Color.PaleVioletRed, alertTime);
-
-        alerted = true;
-        Core.schedule(alertTime, timer => alerted = false);
-
-        // TODO: do stuff here when alerted.  move head, etc.
-
-        Collider[] results = new Collider[100];
-        int numOverlap = Physics.overlapCircleAll(entity.transform.position, alertRadius, results, -1);
-        Debug.log("Alerting!  herdCount={0}, level={1}", numOverlap, level);
-
-        for (int i = 0; i < numOverlap; i++)
+        public override void onAddedToEntity ()
         {
-            var alerter = results[i].entity.getComponent<AlertHerd>();
-            if (results[i].entity != entity && alerter != null)
+            base.onAddedToEntity ();
+        }
+
+        public void alert(int level = 0, int max = 1)
+        {
+            if (level > max)
+                return;
+
+            if (alerted)
+                return;
+
+            if (Core.debugRenderEnabled)
+                Debug.drawHollowBox(entity.transform.position, (int)alertRadius*2, Color.PaleVioletRed, alertTime);
+
+            alerted = true;
+            Core.schedule(alertTime, timer => alerted = false);
+
+            // TODO: do stuff here when alerted.  move head, etc.
+            var cow_controller = entity.getComponent<CowController>();
+            cow_controller.rotateTowards(entity.scene.findEntitiesWithTag((int)Tags.Burglar)[0]);
+
+            alertNearby(level, max);
+        }
+
+        private void alertNearby(int level = 0, int max = 1)
+        {
+            Collider[] results = new Collider[100];
+            int numOverlap = Physics.overlapCircleAll(entity.transform.position, alertRadius, results, -1);
+            Debug.log("Alerting!  herdCount={0}, level={1}", numOverlap, level);
+
+            for (int i = 0; i < numOverlap; i++)
             {
-                Debug.log("Propagating alert to {0}", results[i].entity);
-                Core.schedule(propagationTime, timer => alerter.alert(level + 1, max));
+                var alerter = results[i].entity.getComponent<AlertHerd>();
+                if (results[i].entity != entity && alerter != null)
+                {
+                    Debug.log("Propagating alert to {0}", results[i].entity);
+                    Core.schedule(propagationTime, timer => alerter.alert(level + 1, max));
+                }
             }
         }
     }

@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 using Nez;
@@ -52,6 +54,9 @@ namespace herdburglar.Components.Controllers
 			// Draw facing indicator
 			if (Core.debugRenderEnabled)
 				Debug.drawLine(entity.transform.position, entity.transform.position + ((facingDirection + headDirection) * 100), Color.Blue, 0.5f);
+
+            if (Input.isKeyPressed(Keys.Z))
+                cow.orientation = Cow.Orientation.Up;
 
         	// Find the burglar
             var burglar = entity.scene.findEntitiesWithTag((int)Tags.Burglar);
@@ -128,5 +133,66 @@ namespace herdburglar.Components.Controllers
 
 			return newDirection;
 		}
+
+        public void rotateTowards(Entity target)
+        {
+            var pos = entity.transform.position;
+            var target_pos = target.transform.position;
+            var new_orientation = cow.orientation;
+
+            var x_dist = Math.Abs(target_pos.X - pos.X);
+            var y_dist = Math.Abs(target_pos.Y - pos.Y);
+            var x_distance_threshold = 200;
+            var y_distance_threshold = x_distance_threshold;
+
+            if (target_pos.X < pos.X)
+            {
+                if (target_pos.Y < pos.Y)
+                {
+                    new_orientation = rotateOrientation(cow.orientation);
+                }
+                else if (target_pos.Y > pos.Y)
+                {
+                    new_orientation = rotateOrientation(cow.orientation, false);
+                }
+            }
+            else if (target_pos.X > pos.X)
+            {
+                if (target_pos.Y < pos.Y)
+                {
+                    new_orientation = rotateOrientation(cow.orientation, false);
+                }
+                else if (target_pos.Y > pos.Y)
+                {
+                    new_orientation = rotateOrientation(cow.orientation);
+                }
+            }
+
+            var vector_to_burglar = Vector2.Normalize(target_pos - pos);
+            var dot = Vector2.Dot(headDirection, vector_to_burglar);
+
+            Debug.log("x_dist={0}, y_dist={1}, dot={2}, orig_rotation={3}, new_rotation={4}", x_dist, y_dist, dot, cow.orientation, new_orientation);
+
+            if (new_orientation != cow.orientation && (dot < 0 || dot > _computedAngle))
+                cow.orientation = new_orientation;
+        }
+
+        private Cow.Orientation rotateOrientation(Cow.Orientation orientation, bool rotateRight = true)
+        {
+            var max = (int)Cow.Orientation.None;
+            var idx = (int)orientation;
+
+            var new_orientation = idx + (1 * (rotateRight ? 1 : -1));
+            if (new_orientation < 0)
+            {
+                new_orientation = max - 1;
+            }
+            else if (new_orientation >= max)
+            {
+                new_orientation = 0;
+            }
+
+            return (Cow.Orientation)new_orientation;
+        }
     }
 }
