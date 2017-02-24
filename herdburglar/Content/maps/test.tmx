@@ -101,7 +101,7 @@
     <property name="orientation" value="Right"/>
    </properties>
   </object>
-  <object id="20" name="Cow5" type="CowSpawn" x="518" y="523" width="64" height="64">
+  <object id="20" name="Cow5" type="CowSpawn" x="546" y="521" width="64" height="64">
    <properties>
     <property name="orientation" value="Right"/>
    </properties>

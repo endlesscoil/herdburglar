@@ -32,7 +32,7 @@ namespace herdburglar.Components.Controllers
             alerted = true;
             Core.schedule(alertTime, timer => alerted = false);
 
-            // TODO: do stuff here when alerted.  move head, etc.
+            // NOTE: maybe do something with an event here instead.
             var cow_controller = entity.getComponent<CowController>();
             cow_controller.rotateTowards(entity.scene.findEntitiesWithTag((int)Tags.Burglar)[0]);
 
@@ -43,16 +43,13 @@ namespace herdburglar.Components.Controllers
         {
             Collider[] results = new Collider[100];
             int numOverlap = Physics.overlapCircleAll(entity.transform.position, alertRadius, results, -1);
-            Debug.log("Alerting!  herdCount={0}, level={1}", numOverlap, level);
 
             for (int i = 0; i < numOverlap; i++)
             {
                 var alerter = results[i].entity.getComponent<AlertHerd>();
+
                 if (results[i].entity != entity && alerter != null)
-                {
-                    Debug.log("Propagating alert to {0}", results[i].entity);
                     Core.schedule(propagationTime, timer => alerter.alert(level + 1, max));
-                }
             }
         }
     }

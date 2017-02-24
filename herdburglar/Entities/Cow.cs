@@ -20,8 +20,7 @@ namespace herdburglar
             Up,
             Right,
             Down,
-            Left,
-            None
+            Left
         }
 
         public enum Animations
