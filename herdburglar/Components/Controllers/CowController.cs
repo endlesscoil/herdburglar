@@ -140,11 +140,44 @@ namespace herdburglar.Components.Controllers
             var target_pos = target.transform.position;
             var new_orientation = cow.orientation;
 
-            var x_dist = Math.Abs(target_pos.X - pos.X);
-            var y_dist = Math.Abs(target_pos.Y - pos.Y);
+            var x_dist = target_pos.X - pos.X;
+            var y_dist = target_pos.Y - pos.Y;
             var x_distance_threshold = 200;
             var y_distance_threshold = x_distance_threshold;
 
+            Debug.log("name={0}, x_dist={1}, y_dist={2}", entity.name, x_dist, y_dist);
+            Debug.log("- pos={0}, target_pos={1}", pos, target_pos);
+
+            if (x_dist < 0) // left side of the screen
+            {
+                new_orientation = Cow.Orientation.Left;
+                if (Math.Abs(y_dist) > Math.Abs(x_dist))
+                {
+                    if (y_dist < 0)
+                        new_orientation = Cow.Orientation.Up;                    
+                    else
+                        new_orientation = Cow.Orientation.Down;
+                }                    
+            }
+            else // right side of the screen
+            {
+                new_orientation = Cow.Orientation.Right;
+                if (Math.Abs(y_dist) > Math.Abs(x_dist))
+                {
+                    if (y_dist < 0)
+                        new_orientation = Cow.Orientation.Up;                    
+                    else
+                        new_orientation = Cow.Orientation.Down;
+                }
+            }
+
+            if (cow.orientation != new_orientation)
+                cow.orientation = new_orientation;
+
+/*          
+            var x_dist = Math.Abs(target_pos.X - pos.X);
+            var y_dist = Math.Abs(target_pos.Y - pos.Y);
+            
             if (target_pos.X < pos.X)
             {
                 if (target_pos.Y < pos.Y)
@@ -174,7 +207,7 @@ namespace herdburglar.Components.Controllers
             Debug.log("x_dist={0}, y_dist={1}, dot={2}, orig_rotation={3}, new_rotation={4}", x_dist, y_dist, dot, cow.orientation, new_orientation);
 
             if (new_orientation != cow.orientation && (dot < 0 || dot > _computedAngle))
-                cow.orientation = new_orientation;
+                cow.orientation = new_orientation;*/
         }
 
         private Cow.Orientation rotateOrientation(Cow.Orientation orientation, bool rotateRight = true)

@@ -91,7 +91,7 @@
    </properties>
   </object>
   <object id="15" name="IdolSpawn" type="IdolSpawn" x="432" y="288" width="64" height="64"/>
-  <object id="18" name="Cow2" type="CowSpawn" x="360" y="429" width="64" height="64">
+  <object id="18" name="Cow4" type="CowSpawn" x="360" y="429" width="64" height="64">
    <properties>
     <property name="orientation" value="Down"/>
    </properties>
@@ -101,7 +101,7 @@
     <property name="orientation" value="Right"/>
    </properties>
   </object>
-  <object id="20" name="Cow2" type="CowSpawn" x="518" y="523" width="64" height="64">
+  <object id="20" name="Cow5" type="CowSpawn" x="518" y="523" width="64" height="64">
    <properties>
     <property name="orientation" value="Right"/>
    </properties>
