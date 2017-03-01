@@ -51,6 +51,8 @@
     <Compile Include="Components\AlertHerd.cs" />
     <Compile Include="Entities\Firecracker.cs" />
     <Compile Include="Components\Distractions\DelayedDistraction.cs" />
+    <Compile Include="Components\Distractions\MovingDistraction.cs" />
+    <Compile Include="Entities\Decoy.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">

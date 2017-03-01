@@ -53,6 +53,14 @@ namespace herdburglar.Components.Controllers
                 entity.scene.addEntity(firecracker);
             }
 
+            if (Input.isKeyPressed(Keys.V))
+            {
+                var decoy = new Decoy() { duration = 5f, delay = 2f, velocity = new Vector2(2, 0) };
+                decoy.transform.position = entity.transform.position;
+
+                entity.scene.addEntity(decoy);
+            }
+
 			var anim = entity.getComponent<Sprite<Burglar.Animations>>();
 		
             // Make sure our movement is valid
