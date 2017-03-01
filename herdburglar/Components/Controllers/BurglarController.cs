@@ -5,6 +5,8 @@ using Nez;
 
 using Nez.Sprites;
 using System.Diagnostics;
+using Microsoft.Xna.Framework.Graphics;
+using Nez.Textures;
 
 
 namespace herdburglar.Components.Controllers
@@ -42,6 +44,14 @@ namespace herdburglar.Components.Controllers
 				Core.exit();
 				#endif
 			}
+
+            if (Input.isKeyPressed(Keys.Space))
+            {
+                var firecracker = new Firecracker() { duration = 5f, delay = 2f };
+                firecracker.transform.position = Input.mousePosition;
+
+                entity.scene.addEntity(firecracker);
+            }
 
 			var anim = entity.getComponent<Sprite<Burglar.Animations>>();
 		

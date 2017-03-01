@@ -54,34 +54,47 @@ namespace herdburglar.Components.Controllers
 			// Draw facing indicator
 			if (Core.debugRenderEnabled)
 				Debug.drawLine(entity.transform.position, entity.transform.position + ((facingDirection + headDirection) * 100), Color.Blue, 0.5f);
-            
+
+            var threats = new List<Entity>();
+
         	// Find the burglar
             var burglar = entity.scene.findEntitiesWithTag((int)Tags.Burglar);
             if (burglar.Count > 0)
+                threats.InsertRange(0, burglar);
+
+            var distractions = entity.scene.findEntitiesWithTag((int)Tags.Distraction);
+            if (distractions.Count > 0)
+                threats.InsertRange(0, distractions);
+
+            if (threats.Count > 0)
             {
-            	// Are they within alert distance?
-                var distance = Vector2.Distance(entity.transform.position, burglar[0].transform.position);
-                if (distance < alertDistance)
+                foreach (var threat in threats) 
                 {
-					var vector_to_burglar = Vector2.Normalize(burglar[0].transform.position - entity.transform.position);
-                    var dot = Vector2.Dot(facingDirection + headDirection, vector_to_burglar);
-
-                    // Are they in front of us?
-                    if (dot > _computedAngle)
+                    // Are they within alert distance?
+                    var distance = Vector2.Distance(entity.transform.position, threat.transform.position);
+                    if (distance < alertDistance)
                     {
-                        var raycastHit = Physics.linecast(entity.transform.position, burglar[0].transform.position);
+                        var vector_to_threat = Vector2.Normalize(threat.transform.position - entity.transform.position);
+                        var dot = Vector2.Dot(facingDirection + headDirection, vector_to_threat);
 
-                        // And can we actually see them?
-                        if (raycastHit.collider.entity.tag == (int)Tags.Burglar)
+                        // Are they in front of us?
+                        if (dot > _computedAngle)
                         {
-                            var color = distance < dangerDistance ? Color.Red : Color.Yellow;
-							if (Core.debugRenderEnabled)
-                            	Debug.drawLine(entity.transform.position, burglar[0].transform.position, color, 0.5f);
+                            var raycastHit = Physics.linecast(entity.transform.position, threat.transform.position);
 
-                            rotateTowards(burglar[0]);
-                            entity.getComponent<AlertHerd>().alert();
+                            // And can we actually see them?
+                            if (raycastHit.collider != null && 
+                                (raycastHit.collider.entity.tag == (int)Tags.Burglar || raycastHit.collider.entity.tag == (int)Tags.Distraction))
+                            {
+                                var color = distance < dangerDistance ? Color.Red : Color.Yellow;
+                                if (Core.debugRenderEnabled)
+                                    Debug.drawLine(entity.transform.position, threat.transform.position, color, 0.5f);
 
-                            // TODO: Do something here for alert/danger.
+                                rotateTowards(threat);
+                                entity.getComponent<AlertHerd>().alert();
+
+                                break;
+                            }
                         }
                     }
                 }

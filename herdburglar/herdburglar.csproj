@@ -49,6 +49,8 @@
     <Compile Include="Tags.cs" />
     <Compile Include="Util\Map.cs" />
     <Compile Include="Components\AlertHerd.cs" />
+    <Compile Include="Entities\Firecracker.cs" />
+    <Compile Include="Components\Distractions\DelayedDistraction.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">
@@ -99,4 +101,7 @@
       </Properties>
     </MonoDevelop>
   </ProjectExtensions>
+  <ItemGroup>
+    <Folder Include="Components\Distractions\" />
+  </ItemGroup>
 </Project>

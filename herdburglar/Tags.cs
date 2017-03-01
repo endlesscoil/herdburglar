@@ -6,7 +6,8 @@ namespace herdburglar
 	{
 		Burglar = 1,
 		Cow = 2,
-        Idol = 3
+        Idol = 3,
+        Distraction = 4
 	}
 }
 
