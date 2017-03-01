@@ -7,6 +7,7 @@ using Nez.Textures;
 using Nez.Sprites;
 
 using herdburglar.Components.Distractions;
+using Microsoft.Xna.Framework.Audio;
 
 namespace herdburglar
 {
@@ -24,12 +25,17 @@ namespace herdburglar
         private Sprite<Animations> animation;
         private BoxCollider collider;
         private DelayedDistraction distraction;
+        private SoundEffectInstance sound;
 
         public override void onAddedToScene()
         {
             base.onAddedToScene();
 
             tag = (int)Tags.Idol;
+
+            sound = scene.content.Load<SoundEffect>("sound/firecracker").CreateInstance();
+            sound.IsLooped = true;
+            sound.Volume = 0.25f;
 
             var texture = scene.content.Load<Texture2D>("sprites/flames");
             var subtextures = Subtexture.subtexturesFromAtlas(texture, 16, 18);
@@ -58,7 +64,13 @@ namespace herdburglar
             animation.play(Animations.Fuse);
             collider = addComponent<BoxCollider>();
             distraction = addComponent(new Components.Distractions.DelayedDistraction() { duration = duration, delay = delay });
-            distraction.events.addObserver(DelayedDistraction.Events.Started, () => animation.play(Animations.Exploding));
+            distraction.events.addObserver(DelayedDistraction.Events.Started, () => {
+                animation.play(Animations.Exploding); 
+                sound.Play();
+            });
+            distraction.events.addObserver(DelayedDistraction.Events.Finished, () => {
+                sound.Stop();
+            });
         }
     }
 }

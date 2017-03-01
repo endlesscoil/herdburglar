@@ -13,9 +13,13 @@ namespace herdburglar.Components.Controllers
 
         private bool alerted = false;
 
+        private Cow cow;
+
         public override void onAddedToEntity ()
         {
             base.onAddedToEntity ();
+
+            cow = (Cow)entity;
         }
 
         public void alert(int level = 0, int max = 1)
@@ -35,6 +39,8 @@ namespace herdburglar.Components.Controllers
             // NOTE: maybe do something with an event here instead.
             var cow_controller = entity.getComponent<CowController>();
             cow_controller.rotateTowards(entity.scene.findEntitiesWithTag((int)Tags.Burglar)[0]);
+
+            cow.moo();
 
             alertNearby(level, max);
         }

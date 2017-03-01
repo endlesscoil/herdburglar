@@ -9,6 +9,7 @@ using Nez.Sprites;
 using Nez.Textures;
 
 using herdburglar.Components.Controllers;
+using Microsoft.Xna.Framework.Audio;
 
 namespace herdburglar
 {
@@ -41,6 +42,7 @@ namespace herdburglar
         private Sprite<Animations> animation = null;
         private BoxCollider collider = null;
         private Orientation _orientation = Orientation.Right;
+        private SoundEffectInstance sound;
 
         #region Properties
         public Orientation orientation
@@ -109,6 +111,11 @@ namespace herdburglar
 		{
             _orientation = orientation;
 		}
+
+        public void moo()
+        {
+            sound.Play();
+        }
         #endregion
 
         #region Events
@@ -120,6 +127,7 @@ namespace herdburglar
             controller = addComponent<CowController>();
             collider = addComponent<BoxCollider>();
             alerter = addComponent<AlertHerd>();
+            sound = scene.content.Load<SoundEffect>("sound/cow").CreateInstance();
 
             setupAnimations();
             this.orientation = orientation;     // HACK

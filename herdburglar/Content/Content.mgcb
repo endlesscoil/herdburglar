@@ -81,3 +81,15 @@
 /processorParam:TextureFormat=Color
 /build:sprites/flames.png
 
+#begin sound/firecracker.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sound/firecracker.wav
+
+#begin sound/cow.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sound/cow.wav
+
