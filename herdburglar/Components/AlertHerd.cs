@@ -22,7 +22,7 @@ namespace herdburglar.Components.Controllers
             cow = (Cow)entity;
         }
 
-        public void alert(int level = 0, int max = 1)
+        public void alert(Entity target, int level = 0, int max = 1)
         {
             if (level > max)
                 return;
@@ -38,14 +38,14 @@ namespace herdburglar.Components.Controllers
 
             // NOTE: maybe do something with an event here instead.
             var cow_controller = entity.getComponent<CowController>();
-            cow_controller.rotateTowards(entity.scene.findEntitiesWithTag((int)Tags.Burglar)[0]);
+            cow_controller.rotateTowards(target);
 
             cow.moo();
 
-            alertNearby(level, max);
+            alertNearby(target, level, max);
         }
 
-        private void alertNearby(int level = 0, int max = 1)
+        private void alertNearby(Entity target, int level = 0, int max = 1)
         {
             Collider[] results = new Collider[100];
             int numOverlap = Physics.overlapCircleAll(entity.transform.position, alertRadius, results, -1);
@@ -55,7 +55,7 @@ namespace herdburglar.Components.Controllers
                 var alerter = results[i].entity.getComponent<AlertHerd>();
 
                 if (results[i].entity != entity && alerter != null)
-                    Core.schedule(propagationTime, timer => alerter.alert(level + 1, max));
+                    Core.schedule(propagationTime, timer => alerter.alert(target, level + 1, max));
             }
         }
     }

@@ -91,7 +91,7 @@ namespace herdburglar.Components.Controllers
                                     Debug.drawLine(entity.transform.position, threat.transform.position, color, 0.5f);
 
                                 rotateTowards(threat);
-                                entity.getComponent<AlertHerd>().alert();
+                                entity.getComponent<AlertHerd>().alert(raycastHit.collider.entity);
 
                                 break;
                             }
