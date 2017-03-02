@@ -53,34 +53,7 @@ namespace herdburglar
             {
                 _orientation = value;
 
-                if (animation != null)
-                {
-                    switch (orientation)
-                    {
-                        case Orientation.Up:
-                            setColliderDetails(-12, -20, 26, 64);
-                            animation.play(Animations.FacingUpIdle);
-                            break;
-
-                        case Orientation.Left:
-                            setColliderDetails(-40, -16, 64, 40);
-                            animation.play(Animations.FacingLeftIdle);
-                            break;
-
-                        case Orientation.Down:
-                            setColliderDetails(-12, -16, 26, 56);
-                            animation.play(Animations.FacingDownIdle);
-                            break;
-
-                        case Orientation.Right:
-                            setColliderDetails(-24, -16, 64, 40);
-                            animation.play(Animations.FacingRightIdle);
-                            break;
-
-                        default:
-                            break;
-                    }
-                }
+                refreshOrientation();
             }
         }
         #endregion
@@ -209,6 +182,38 @@ namespace herdburglar
             collider.setWidth(width);
             collider.setHeight(height);
             collider.localOffset = new Vector2(x + width / 2, y + height / 2);
+        }
+
+        private void refreshOrientation()
+        {
+            if (animation != null)
+            {
+                switch (orientation)
+                {
+                case Orientation.Up:
+                    setColliderDetails(-12, -20, 26, 64);
+                    animation.play(Animations.FacingUpIdle);
+                    break;
+
+                case Orientation.Left:
+                    setColliderDetails(-40, -16, 64, 40);
+                    animation.play(Animations.FacingLeftIdle);
+                    break;
+
+                case Orientation.Down:
+                    setColliderDetails(-12, -16, 26, 56);
+                    animation.play(Animations.FacingDownIdle);
+                    break;
+
+                case Orientation.Right:
+                    setColliderDetails(-24, -16, 64, 40);
+                    animation.play(Animations.FacingRightIdle);
+                    break;
+
+                default:
+                    break;
+                }
+            }
         }
         #endregion
     }

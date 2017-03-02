@@ -82,9 +82,7 @@ namespace herdburglar
                 var obj = col_layer.objects[i];
                 var c = new BoxCollider(obj.x, obj.y, obj.width, obj.height);       // TODO: add support for collider shapes that aren't boxes.
 
-                // TODO: Why am I doing it this way instead of with addComponent?
-                c.entity = entity;
-                Physics.addCollider(c);
+                entity.addCollider(c);
             }
         }
 
