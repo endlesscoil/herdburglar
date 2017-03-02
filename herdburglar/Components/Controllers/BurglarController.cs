@@ -56,7 +56,7 @@ namespace herdburglar.Components.Controllers
             if (Input.isKeyPressed(Keys.V))
             {
                 var decoy = new Decoy() { duration = 5f, delay = 2f, velocity = new Vector2(2, 0) };
-                decoy.transform.position = entity.transform.position;
+                decoy.transform.position = entity.transform.position + new Vector2(35, 0);      // FIXME
 
                 entity.scene.addEntity(decoy);
             }
