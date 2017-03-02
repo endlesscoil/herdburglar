@@ -1,90 +1,44 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics;
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Graphics;
 
 using Nez;
-
 using Nez.Sprites;
-using System.Diagnostics;
-using Microsoft.Xna.Framework.Graphics;
 using Nez.Textures;
-
 
 namespace herdburglar.Components.Controllers
 {
     class BurglarController : Component, IUpdatable, ITriggerListener
     {
-        private Mover mover;
+        public float speed = 150f;
 
+        private Mover mover;
+        private Sprite<Burglar.Animations> animation;
+
+        #region Events
         public override void onAddedToEntity()
         {
             base.onAddedToEntity();
 
             mover = entity.getOrCreateComponent<Mover>();
+            animation = entity.getComponent<Sprite<Burglar.Animations>>();
         }
 
         void IUpdatable.update()
         {
-            // Movement input
-            var movement = Vector2.Zero;
-            if (Input.isKeyDown(Keys.A))
-                movement.X = -1f;
-            else if (Input.isKeyDown(Keys.D))
-                movement.X = 1f;
+            var movement = processInput();
 
-            if (Input.isKeyDown(Keys.W))
-                movement.Y = -1f;
-            else if (Input.isKeyDown(Keys.S))
-                movement.Y = 1f;
-
-			if (Input.isKeyPressed(Keys.Escape))
-			{
-				#if __MonoCS__
-				Process.GetCurrentProcess().Kill();		// HACK: Linux and escape keypress doesn't work right.
-				#else
-				Core.exit();
-				#endif
-			}
-
-            if (Input.isKeyPressed(Keys.Space))
-            {
-                var firecracker = new Firecracker() { duration = 5f, delay = 2f };
-                firecracker.transform.position = Input.mousePosition;
-
-                entity.scene.addEntity(firecracker);
-            }
-
-            if (Input.isKeyPressed(Keys.V))
-            {
-                var decoy = new Decoy() { duration = 5f, delay = 2f, velocity = new Vector2(2, 0) };
-                decoy.transform.position = entity.transform.position + new Vector2(35, 0);      // FIXME
-
-                entity.scene.addEntity(decoy);
-            }
-
-			var anim = entity.getComponent<Sprite<Burglar.Animations>>();
+            updateAnimation(movement);
 		
-            // Make sure our movement is valid
-            if (movement.Length() == 0)
-            {
-				if (anim.isAnimationPlaying(Burglar.Animations.Walk))
-					anim.play(Burglar.Animations.Idle);
-
-                return;
-            }
-
-            // Update animation
-			anim.flipX = movement.X < 0;
-            if (!anim.isAnimationPlaying(Burglar.Animations.Walk))
-				anim.play(Burglar.Animations.Walk);
-
             // Move!
             CollisionResult result;
-            if (mover.move(movement * Time.deltaTime * 150f, out result))
+            if (mover.move(movement * Time.deltaTime * speed, out result))
             {
                 Nez.Debug.log("Collided.");
             }
         }
-
 
         void ITriggerListener.onTriggerEnter(Collider other, Collider self)
         {
@@ -102,5 +56,68 @@ namespace herdburglar.Components.Controllers
         {
 
         }
+        #endregion
+
+        #region Private
+        private Vector2 processInput() 
+        {
+            var movement = Vector2.Zero;
+
+            if (Input.isKeyDown(Keys.A))
+                movement.X = -1f;
+            else if (Input.isKeyDown(Keys.D))
+                movement.X = 1f;
+
+            if (Input.isKeyDown(Keys.W))
+                movement.Y = -1f;
+            else if (Input.isKeyDown(Keys.S))
+                movement.Y = 1f;
+
+            if (Input.isKeyPressed(Keys.Escape))
+            {
+                #if __MonoCS__
+                Process.GetCurrentProcess().Kill();     // HACK: Linux and escape keypress doesn't work right.
+                #else
+                Core.exit();
+                #endif
+            }
+
+            // TEMP
+            if (Input.isKeyPressed(Keys.Space))
+            {
+                var firecracker = new Firecracker() { duration = 5f, delay = 2f };
+                firecracker.transform.position = Input.mousePosition;
+
+                entity.scene.addEntity(firecracker);
+            }
+
+            // TEMP
+            if (Input.isKeyPressed(Keys.V))
+            {
+                var decoy = new Decoy() { duration = 5f, delay = 2f, velocity = new Vector2(2, 0) };
+                decoy.transform.position = entity.transform.position + new Vector2(animation.width * 0.75f, 0);
+
+                entity.scene.addEntity(decoy);
+            }
+
+            return movement;
+        }
+
+        private void updateAnimation(Vector2 movement)
+        {
+            if (movement == Vector2.Zero)
+            {
+                if (animation.isAnimationPlaying(Burglar.Animations.Walk))
+                    animation.play(Burglar.Animations.Idle);
+            }
+            else
+            {
+                animation.flipX = movement.X < 0;   // flip depending on movement direction.
+
+                if (!animation.isAnimationPlaying(Burglar.Animations.Walk))
+                    animation.play(Burglar.Animations.Walk);
+            }
+        }
+        #endregion
     }
 }

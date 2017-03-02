@@ -38,7 +38,7 @@ namespace herdburglar
 
 			tag = (int)Tags.Burglar;
 
-			controller = addComponent<BurglarController>();
+            controller = addComponent(new BurglarController() { speed = 150f });
             collider = addComponent(new BoxCollider(-16, -24, 32, 64));
 
             setupAnimations();
