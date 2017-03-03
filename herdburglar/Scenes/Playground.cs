@@ -1,14 +1,14 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Nez;
-using Nez.Sprites;
-
-using System;
-using System.Collections.Generic;
 using Nez.UI;
 using Nez.Tiled;
 using Nez.Timers;
+using Nez.Sprites;
 
 namespace herdburglar
 {

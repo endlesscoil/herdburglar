@@ -13,11 +13,13 @@ namespace herdburglar
 {
     public class Firecracker : Entity
     {
+        #region Enums
         public enum Animations
         {
             Fuse = 0,
             Exploding = 1
         }
+        #endregion
 
         public float duration;
         public float delay;
@@ -27,6 +29,7 @@ namespace herdburglar
         private DelayedDistraction distraction;
         private SoundEffectInstance sound;
 
+        #region Events
         public override void onAddedToScene()
         {
             base.onAddedToScene();
@@ -37,31 +40,6 @@ namespace herdburglar
             sound.IsLooped = true;
             sound.Volume = 0.25f;
 
-            var texture = scene.content.Load<Texture2D>("sprites/flames");
-            var subtextures = Subtexture.subtexturesFromAtlas(texture, 16, 18);
-
-            animation = addComponent(new Sprite<Animations>(subtextures[0]));
-            animation.addAnimation(Animations.Fuse, new SpriteAnimation(new List<Subtexture>()
-            {
-                subtextures[0]
-            }));
-
-            animation.addAnimation(Animations.Exploding, new SpriteAnimation(new List<Subtexture>()
-            {
-                subtextures[1],
-                subtextures[2],
-                subtextures[3],
-                subtextures[4],
-                subtextures[5],
-                subtextures[6],
-                subtextures[7],
-                subtextures[8],
-                subtextures[9],
-                subtextures[10],
-                subtextures[11]
-            }));
-
-            animation.play(Animations.Fuse);
             collider = addComponent<BoxCollider>();
             distraction = addComponent(new Components.Distractions.DelayedDistraction() { duration = duration, delay = delay });
             distraction.events.addObserver(DelayedDistraction.Events.Started, () => {
@@ -71,6 +49,39 @@ namespace herdburglar
             distraction.events.addObserver(DelayedDistraction.Events.Finished, () => {
                 sound.Stop();
             });
+
+            setupAnimations();
+            animation.play(Animations.Fuse);
         }
+        #endregion
+
+        #region Private
+        private void setupAnimations()
+        {
+            var texture = scene.content.Load<Texture2D>("sprites/flames");
+            var subtextures = Subtexture.subtexturesFromAtlas(texture, 16, 18);
+
+            animation = addComponent(new Sprite<Animations>(subtextures[0]));
+            animation.addAnimation(Animations.Fuse, new SpriteAnimation(new List<Subtexture>()
+                {
+                    subtextures[0]
+                }));
+
+            animation.addAnimation(Animations.Exploding, new SpriteAnimation(new List<Subtexture>()
+                {
+                    subtextures[1],
+                    subtextures[2],
+                    subtextures[3],
+                    subtextures[4],
+                    subtextures[5],
+                    subtextures[6],
+                    subtextures[7],
+                    subtextures[8],
+                    subtextures[9],
+                    subtextures[10],
+                    subtextures[11]
+                }));
+        }
+        #endregion
     }
 }

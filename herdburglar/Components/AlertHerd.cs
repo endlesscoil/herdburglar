@@ -2,7 +2,6 @@
 
 using Nez;
 
-
 namespace herdburglar.Components.Controllers
 {
     class AlertHerd : Component

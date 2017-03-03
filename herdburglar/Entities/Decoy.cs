@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
 using Nez;
@@ -7,19 +9,19 @@ using Nez.Textures;
 using Nez.Sprites;
 
 using herdburglar.Components.Distractions;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework;
 
 namespace herdburglar
 {
     public class Decoy : Entity
     {
+        #region Enums
         public enum Animations
         {
-            Waiting = 0,
-            Walking = 1,
-            FellOver = 2
+            Waiting,
+            Walking,
+            FellOver
         }
+        #endregion
 
         public float duration;
         public float delay;
@@ -30,31 +32,31 @@ namespace herdburglar
         private MovingDistraction distraction;
         private SoundEffectInstance sound;
 
+        #region Events
         public override void onAddedToScene()
         {
             base.onAddedToScene();
 
-            tag = (int)Tags.Distraction;
-
-/*          
+            /*          
             sound = scene.content.Load<SoundEffect>("sound/firecracker").CreateInstance();
             sound.IsLooped = true;
             sound.Volume = 0.25f;
-*/
+            */
 
+            tag = (int)Tags.Distraction;
             collider = addComponent<BoxCollider>();
 
             distraction = addComponent(new Components.Distractions.MovingDistraction() { duration = duration, delay = delay, velocity = velocity });
-            distraction.events.addObserver(MovingDistraction.Events.Started, () => {
-                animation.play(Animations.Walking); 
-            });
-            distraction.events.addObserver(MovingDistraction.Events.Finished, () => { });
+            distraction.events.addObserver(MovingDistraction.Events.Started, () => animation.play(Animations.Walking));
+            //distraction.events.addObserver(MovingDistraction.Events.Finished, () => { });
 
             setupAnimations();
 
             animation.play(Animations.Waiting);
         }
+        #endregion
 
+        #region Private
         private void setupAnimations()
         {
             var texture = scene.content.Load<Texture2D>("sprites/kit_from_firefox");
@@ -83,5 +85,6 @@ namespace herdburglar
                 subtextures[0]
             }));
         }
+        #endregion
     }
 }

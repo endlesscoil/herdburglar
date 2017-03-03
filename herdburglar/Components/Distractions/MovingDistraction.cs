@@ -3,7 +3,6 @@
 using Nez;
 using Nez.Systems;
 
-
 namespace herdburglar.Components.Distractions
 {
     class MovingDistraction : Component, IUpdatable

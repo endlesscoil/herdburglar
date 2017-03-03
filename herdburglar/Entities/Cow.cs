@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
 using Nez;
@@ -9,7 +10,6 @@ using Nez.Sprites;
 using Nez.Textures;
 
 using herdburglar.Components.Controllers;
-using Microsoft.Xna.Framework.Audio;
 
 namespace herdburglar
 {
