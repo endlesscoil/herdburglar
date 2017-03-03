@@ -12,6 +12,7 @@ namespace herdburglar.Components.Distractions
             Started = 0,
             Finished = 1
         }
+
         public Emitter<Events> events = new Emitter<Events>();
 
         public float duration = 5f;
@@ -45,15 +46,12 @@ namespace herdburglar.Components.Distractions
 
                 CollisionResult result;
                 if (mover.move(velocity, out result))
-                {
                     collided = true;
-                }
 
                 if (collided || Time.time >= startTime + delay + duration)
                 {
+                    distracting = false;
                     events.emit(Events.Finished);
-
-                    entity.destroy();
                 }
             }
         }

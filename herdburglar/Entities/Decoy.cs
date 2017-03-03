@@ -30,7 +30,7 @@ namespace herdburglar
         private Sprite<Animations> animation;
         private BoxCollider collider;
         private MovingDistraction distraction;
-        private SoundEffectInstance sound;
+        //private SoundEffectInstance sound;
 
         #region Events
         public override void onAddedToScene()
@@ -48,7 +48,9 @@ namespace herdburglar
 
             distraction = addComponent(new Components.Distractions.MovingDistraction() { duration = duration, delay = delay, velocity = velocity });
             distraction.events.addObserver(MovingDistraction.Events.Started, () => animation.play(Animations.Walking));
-            //distraction.events.addObserver(MovingDistraction.Events.Finished, () => { });
+            distraction.events.addObserver(MovingDistraction.Events.Finished, () => { 
+                destroy();
+            });
 
             setupAnimations();
 

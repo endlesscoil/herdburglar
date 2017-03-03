@@ -10,6 +10,8 @@ using Nez.Tiled;
 using Nez.Timers;
 using Nez.Sprites;
 
+using herdburglar.Components.Controllers;
+
 namespace herdburglar
 {
     class Playground : Scene
@@ -82,7 +84,7 @@ namespace herdburglar
                 var obj = col_layer.objects[i];
                 var c = new BoxCollider(obj.x, obj.y, obj.width, obj.height);       // TODO: add support for collider shapes that aren't boxes.
 
-                entity.addCollider(c);
+                entity.addComponent(c);
             }
         }
 
@@ -103,9 +105,9 @@ namespace herdburglar
                         break;
 
                     case "CowSpawn":
-                        var orientation = Cow.Orientation.Right;
+                        var orientation = CowController.Orientation.Right;
                         if (obj.properties.ContainsKey("orientation"))
-                            orientation = Cow.getOrientationFromName(obj.properties["orientation"]);
+                            orientation = CowController.getOrientationFromName(obj.properties["orientation"]);
 
                         var cow = new Cow(orientation: orientation);
                         cow.transform.position = objPosition;

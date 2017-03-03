@@ -85,7 +85,7 @@ namespace herdburglar.Components.Controllers
             // TEMP
             if (Input.isKeyPressed(Keys.Space))
             {
-                var firecracker = new Firecracker() { duration = 5f, delay = 2f };
+                var firecracker = new Firecracker() { duration = 5f, delay = 2f, propagationTime = 0.25f, alertRadius = 200f };
                 firecracker.transform.position = Input.mousePosition;
 
                 entity.scene.addEntity(firecracker);

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
 using Nez;
@@ -7,7 +8,7 @@ using Nez.Textures;
 using Nez.Sprites;
 
 using herdburglar.Components.Distractions;
-using Microsoft.Xna.Framework.Audio;
+using herdburglar.Components.Controllers;
 
 namespace herdburglar
 {
@@ -23,11 +24,14 @@ namespace herdburglar
 
         public float duration;
         public float delay;
+        public float propagationTime;
+        public float alertRadius;
 
         private Sprite<Animations> animation;
         private BoxCollider collider;
         private DelayedDistraction distraction;
         private SoundEffectInstance sound;
+        private AlertHerd alerter;
 
         #region Events
         public override void onAddedToScene()
@@ -41,13 +45,19 @@ namespace herdburglar
             sound.Volume = 0.25f;
 
             collider = addComponent<BoxCollider>();
+            alerter = addComponent<AlertHerd>();
             distraction = addComponent(new Components.Distractions.DelayedDistraction() { duration = duration, delay = delay });
             distraction.events.addObserver(DelayedDistraction.Events.Started, () => {
-                animation.play(Animations.Exploding); 
+                animation.play(Animations.Exploding);
                 sound.Play();
+
+                alerter.alert(this);
             });
+
             distraction.events.addObserver(DelayedDistraction.Events.Finished, () => {
                 sound.Stop();
+
+                destroy();
             });
 
             setupAnimations();

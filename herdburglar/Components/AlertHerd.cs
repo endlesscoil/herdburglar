@@ -1,24 +1,29 @@
 ﻿using Microsoft.Xna.Framework;
 
 using Nez;
+using Nez.Systems;
 
 namespace herdburglar.Components.Controllers
 {
     class AlertHerd : Component
     {
+        public enum Events
+        {
+            Alerted,
+            Settled
+        }
+
         private float alertTime = 2f;
         private float alertRadius = 150f;
         private float propagationTime = 0.25f;
 
         private bool alerted = false;
 
-        private Cow cow;
+        public Emitter<Events,Entity> events = new Emitter<Events,Entity>();
 
         public override void onAddedToEntity ()
         {
             base.onAddedToEntity ();
-
-            cow = (Cow)entity;
         }
 
         public void alert(Entity target, int level = 0, int max = 1)
@@ -33,13 +38,12 @@ namespace herdburglar.Components.Controllers
                 Debug.drawHollowBox(entity.transform.position, (int)alertRadius*2, Color.PaleVioletRed, alertTime);
 
             alerted = true;
-            Core.schedule(alertTime, timer => alerted = false);
+            events.emit(Events.Alerted, target);
 
-            // NOTE: maybe do something with an event here instead.
-            var cow_controller = entity.getComponent<CowController>();
-            cow_controller.rotateTowards(target);
-
-            cow.moo();
+            Core.schedule(alertTime, timer => {
+                alerted = false;
+                events.emit(Events.Settled, null);
+            });
 
             alertNearby(target, level, max);
         }
