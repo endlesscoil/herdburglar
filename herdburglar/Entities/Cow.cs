@@ -103,7 +103,7 @@ namespace herdburglar
             sound = scene.content.Load<SoundEffect>("sound/cow").CreateInstance();
 
             setupAnimations();
-            this.orientation = orientation;     // HACK
+            refreshOrientation();
         }
 
 		public override void onRemovedFromScene()

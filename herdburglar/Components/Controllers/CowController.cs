@@ -14,6 +14,7 @@ namespace herdburglar.Components.Controllers
 {
     class CowController : Component, IUpdatable
     {
+        #region Static
 		public static Dictionary<Cow.Orientation, Vector2> orientationToFacingDirection = new Dictionary<Cow.Orientation, Vector2>
         {
 			{ Cow.Orientation.Up, new Vector2(0, -1) },
@@ -21,7 +22,9 @@ namespace herdburglar.Components.Controllers
 			{ Cow.Orientation.Down, new Vector2(0, 1) },
 			{ Cow.Orientation.Right, new Vector2(1, 0) }
         };
+        #endregion
 
+        #region Enums
 		public enum HeadRotation {
 			None = 0,
 			Left = 1,
@@ -29,39 +32,51 @@ namespace herdburglar.Components.Controllers
 			Down = 1,
 			Up = 2
 		}
+        #endregion
+
+        public float fovAngle = MathHelper.Pi / 8; // 90 degrees
+        public float alertDistance = 250f;
+        public float dangerDistance = 175;
 
         private Cow cow = null;
-        private float fovAngle = MathHelper.Pi / 8; // 90 degrees
-        private float _computedAngle;
-        private float alertDistance = 250f;
-        private float dangerDistance = 175;
-		private Vector2 headDirection;
+        private float computedFOVAngle = 0f;
+        private Vector2 headDirection = Vector2.Zero;
 
+        #region Events
         public override void onAddedToEntity()
         {
             base.onAddedToEntity();
 
             cow = (Cow)entity;
-            _computedAngle = Mathf.cos(fovAngle);
-
+            computedFOVAngle = Mathf.cos(fovAngle);
 			headDirection = orientationToFacingDirection[cow.orientation];
         }
 
         void IUpdatable.update()
         {
-            var facingDirection = orientationToFacingDirection[cow.orientation];
+            var facingDirection = orientationToFacingDirection[cow.orientation];        // FIXME: I don't like how this is currently done.
 
 			// Draw facing indicator
 			if (Core.debugRenderEnabled)
 				Debug.drawLine(entity.transform.position, entity.transform.position + ((facingDirection + headDirection) * 100), Color.Blue, 0.5f);
 
-            var threats = new List<Entity>();
+            // Scan for any threats
+            var threat = scanForThreats(facingDirection);
+        }
+        #endregion
 
-        	// Find the burglar
+        #region Private
+        private Entity scanForThreats(Vector2 facingDirection)
+        {
+            var threats = new List<Entity>();
+            Entity foundThreat = null;
+
+            // Find the burglar
             var burglar = entity.scene.findEntitiesWithTag((int)Tags.Burglar);
             if (burglar.Count > 0)
                 threats.InsertRange(0, burglar);
 
+            // .. and his distractions
             var distractions = entity.scene.findEntitiesWithTag((int)Tags.Distraction);
             if (distractions.Count > 0)
                 threats.InsertRange(0, distractions);
@@ -78,7 +93,7 @@ namespace herdburglar.Components.Controllers
                         var dot = Vector2.Dot(facingDirection + headDirection, vector_to_threat);
 
                         // Are they in front of us?
-                        if (dot > _computedAngle)
+                        if (dot > computedFOVAngle)
                         {
                             var raycastHit = Physics.linecast(entity.transform.position, threat.transform.position);
 
@@ -91,14 +106,20 @@ namespace herdburglar.Components.Controllers
                                     Debug.drawLine(entity.transform.position, threat.transform.position, color, 0.5f);
 
                                 rotateTowards(threat);
-                                entity.getComponent<AlertHerd>().alert(raycastHit.collider.entity);
+                                var alertHerd = entity.getComponent<AlertHerd>();
+                                if (alertHerd != null)
+                                    alertHerd.alert(raycastHit.collider.entity);
 
+                                // Break out on first threat found.
+                                foundThreat = threat;
                                 break;
                             }
                         }
                     }
                 }
             }
+
+            return foundThreat;
         }
 
 		private Vector2 getHeadDirection(Entity target)
@@ -188,5 +209,6 @@ namespace herdburglar.Components.Controllers
             // but feels like the mechanic is too ... "tight"?
             headDirection = getHeadDirection(target);
         }
+        #endregion
     }
 }
