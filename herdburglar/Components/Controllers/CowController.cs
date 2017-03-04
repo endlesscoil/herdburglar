@@ -127,7 +127,7 @@ namespace herdburglar.Components.Controllers
 
 			// Draw facing indicator
 			if (Core.debugRenderEnabled)
-				Debug.drawLine(entity.transform.position, entity.transform.position + ((facingDirection + headDirection) * 100), Color.Blue, 0.5f);
+				Debug.drawLine(entity.transform.position, entity.transform.position + ((facingDirection + headDirection) * 50), Color.Blue, 0.5f);
 
             // Scan for any threats
             scanForThreats(facingDirection);

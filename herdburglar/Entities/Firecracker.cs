@@ -63,6 +63,11 @@ namespace herdburglar
             setupAnimations();
             animation.play(Animations.Fuse);
         }
+
+        public override void onRemovedFromScene()
+        {
+            base.onRemovedFromScene();
+        }
         #endregion
 
         #region Private
