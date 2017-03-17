@@ -1,12 +1,15 @@
 ﻿<Properties StartupItem="herdburglar/herdburglar.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="herdburglar/Scenes/Playground.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="herdburglar/Entities/Firecracker.cs">
     <Files>
-      <File FileName="herdburglar/Scenes/Playground.cs" Line="8" Column="34" />
-      <File FileName="herdburglar/Components/Controllers/BurglarController.cs" Line="77" Column="50" />
-      <File FileName="herdburglar/Components/Controllers/CowController.cs" Line="31" Column="32" />
-      <File FileName="herdburglar/Components/Controllers/IdolController.cs" Line="22" Column="43" />
-      <File FileName="herdburglar/Entities/Idol.cs" Line="18" Column="46" />
+      <File FileName="herdburglar/Entities/Firecracker.cs" Line="74" Column="39" />
+      <File FileName="herdburglar/Entities/Decoy.cs" Line="11" Column="1" />
+      <File FileName="herdburglar/Scenes/Playground.cs" Line="34" Column="13" />
+      <File FileName="herdburglar/Entities/Burglar.cs" Line="11" Column="22" />
+      <File FileName="herdburglar/Components/Controllers/BurglarController.cs" Line="51" Column="5" />
+      <File FileName="herdburglar/Components/AlertHerd.cs" Line="48" Column="45" />
+      <File FileName="../../libs/Nez/Nez.Portable/ECS/Entity.cs" Line="389" Column="1" />
+      <File FileName="../../libs/Nez/Nez.Portable/ECS/InternalUtils/ComponentList.cs" Line="219" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

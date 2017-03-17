@@ -94,8 +94,12 @@ namespace herdburglar.Components.Controllers
             // TEMP
             if (Input.isKeyPressed(Keys.V))
             {
-                var decoy = new Decoy() { duration = 5f, delay = 2f, velocity = new Vector2(2, 0) };
-                decoy.transform.position = entity.transform.position + new Vector2(animation.width * 0.75f, 0);
+                var decoyVelocity = new Vector2(2, 0);
+                if (animation.flipX)
+                    decoyVelocity.X = -decoyVelocity.X;
+                
+                var decoy = new Decoy() { duration = 5f, delay = 2f, velocity = decoyVelocity };
+                decoy.transform.position = entity.transform.position + new Vector2(animation.width * 0.75f * (decoyVelocity.X < 0 ? -1 : 1), 0);
 
                 entity.scene.addEntity(decoy);
             }

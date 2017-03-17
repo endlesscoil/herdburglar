@@ -47,13 +47,17 @@ namespace herdburglar
             collider = addComponent<BoxCollider>();
 
             distraction = addComponent(new Components.Distractions.MovingDistraction() { duration = duration, delay = delay, velocity = velocity });
-            distraction.events.addObserver(MovingDistraction.Events.Started, () => animation.play(Animations.Walking));
+            distraction.events.addObserver(MovingDistraction.Events.Started, () => {
+                animation.flipX = velocity.X < 0;
+                animation.play(Animations.Walking);   
+            });
             distraction.events.addObserver(MovingDistraction.Events.Finished, () => { 
                 destroy();
             });
 
             setupAnimations();
 
+            animation.flipX = velocity.X < 0;
             animation.play(Animations.Waiting);
         }
         #endregion
