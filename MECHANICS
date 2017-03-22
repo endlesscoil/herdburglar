@@ -1,0 +1,26 @@
+Entities:
+    Burglar:
+        Needs to collect the idol
+        Can hide out of line of site of cows
+        Can use distractions to change cow orientation to allow for burglary
+
+    Cows:
+        Watches for enemies (and distractions)
+        Alerts other nearby cows if something is seen
+        Get too close to a cow and game over
+
+    Bulls:
+        Watches for enemies
+        Ignores distractions (but can be alerted by other cows who see distractions)
+        Get too close to a bull and game over
+
+Distractions:
+    Decoy:
+        Moves horizontally across the field
+        Falls over (dies) after a certain duration or if it collides with something
+
+    Firecracker:
+        Delayed activation
+        Alerts nearby cows when activated
+        Alerts for a set duration.
+
