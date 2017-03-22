@@ -26,7 +26,7 @@ namespace herdburglar.Components.Controllers
             base.onAddedToEntity ();
         }
 
-        public void alert(Entity target, int level = 0, int max = 1)
+        public void alert(Entity target, int level = 0, int max = 1, bool alertBull = true)
         {
             if (level > max)
                 return;
@@ -45,19 +45,24 @@ namespace herdburglar.Components.Controllers
                 events.emit(Events.Settled, null);
             });
 
-            alertNearby(target, level, max);
+            alertNearby(target, level, max, alertBull);
         }
 
-        private void alertNearby(Entity target, int level = 0, int max = 1)
+        private void alertNearby(Entity target, int level = 0, int max = 1, bool alertBull = true)
         {
             Collider[] results = new Collider[100];
             int numOverlap = Physics.overlapCircleAll(entity.transform.position, alertRadius, results, -1);
 
             for (int i = 0; i < numOverlap; i++)
             {
-                var alerter = results[i].entity.getComponent<AlertHerd>();
+                if (results[i].entity == entity)
+                    continue;
+                
+                if (results[i].entity.tag == (int)Tags.Bull && !alertBull)
+                    continue;
 
-                if (results[i].entity != entity && alerter != null)
+                var alerter = results[i].entity.getComponent<AlertHerd>();
+                if (alerter != null)
                     Core.schedule(propagationTime, timer => alerter.alert(target, level + 1, max));
             }
         }

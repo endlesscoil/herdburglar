@@ -121,9 +121,9 @@ namespace herdburglar
 
                     case "BullSpawn":
                     {
-                        var orientation = BullController.Orientation.Right;
+                        var orientation = CowController.Orientation.Right;
                         if (obj.properties.ContainsKey("orientation"))
-                            orientation = BullController.getOrientationFromName(obj.properties["orientation"]);
+                            orientation = CowController.getOrientationFromName(obj.properties["orientation"]);
 
                         var bull = new Bull(orientation: orientation);
                         bull.transform.position = objPosition;

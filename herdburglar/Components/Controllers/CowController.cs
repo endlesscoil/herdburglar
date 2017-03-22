@@ -76,6 +76,7 @@ namespace herdburglar.Components.Controllers
         public float fovAngle = MathHelper.Pi / 8; // 90 degrees
         private float computedFOVAngle = 0f;
 
+        public bool watchForDistractions = true;
         public float alertDistance = 250f;
         public float dangerDistance = 175;
 
@@ -150,10 +151,13 @@ namespace herdburglar.Components.Controllers
             if (burglar.Count > 0)
                 threats.InsertRange(0, burglar);
 
-            // .. and his distractions
-            var distractions = entity.scene.findEntitiesWithTag((int)Tags.Distraction);
-            if (distractions.Count > 0)
-                threats.InsertRange(0, distractions);
+            if (watchForDistractions)
+            {
+                // .. and his distractions
+                var distractions = entity.scene.findEntitiesWithTag((int)Tags.Distraction);
+                if (distractions.Count > 0)
+                    threats.InsertRange(0, distractions);
+            }
 
             if (threats.Count > 0)
             {
@@ -330,57 +334,51 @@ namespace herdburglar.Components.Controllers
             var subtextures = Subtexture.subtexturesFromAtlas(texture, 128, 128);
 
             animation = entity.addComponent(new Sprite<Animations>(subtextures[0]));
-            animation.addAnimation(Animations.FacingUpIdle, new SpriteAnimation(new List<Subtexture>()
-                {
-                    subtextures[0*4+2]
-                }));
+            if (!watchForDistractions)
+                animation.color = Color.DarkRed;
+            animation.addAnimation(Animations.FacingUpIdle, new SpriteAnimation(new List<Subtexture>() {
+                subtextures[0*4+2]
+            }));
 
-            animation.addAnimation(Animations.FacingUpWalk, new SpriteAnimation(new List<Subtexture>()
-                {
-                    subtextures[0*4+0],
-                    subtextures[0*4+1],
-                    subtextures[0*4+2],
-                    subtextures[0*4+3]
-                }));
+            animation.addAnimation(Animations.FacingUpWalk, new SpriteAnimation(new List<Subtexture>() {
+                subtextures[0*4+0],
+                subtextures[0*4+1],
+                subtextures[0*4+2],
+                subtextures[0*4+3]
+            }));
 
-            animation.addAnimation(Animations.FacingLeftIdle, new SpriteAnimation(new List<Subtexture>()
-                {
-                    subtextures[1*4+2]
-                }));
+            animation.addAnimation(Animations.FacingLeftIdle, new SpriteAnimation(new List<Subtexture>() {
+                subtextures[1*4+2]
+            }));
 
-            animation.addAnimation(Animations.FacingLeftWalk, new SpriteAnimation(new List<Subtexture>()
-                {
-                    subtextures[1*4+0],
-                    subtextures[1*4+1],
-                    subtextures[1*4+2],
-                    subtextures[1*4+3]
-                }));
+            animation.addAnimation(Animations.FacingLeftWalk, new SpriteAnimation(new List<Subtexture>() {
+                subtextures[1*4+0],
+                subtextures[1*4+1],
+                subtextures[1*4+2],
+                subtextures[1*4+3]
+            }));
 
-            animation.addAnimation(Animations.FacingDownIdle, new SpriteAnimation(new List<Subtexture>()
-                {
-                    subtextures[2*4+2]
-                }));
+            animation.addAnimation(Animations.FacingDownIdle, new SpriteAnimation(new List<Subtexture>() {
+                subtextures[2*4+2]
+            }));
 
-            animation.addAnimation(Animations.FacingDownWalk, new SpriteAnimation(new List<Subtexture>()
-                {
-                    subtextures[2*4+0],
-                    subtextures[2*4+1],
-                    subtextures[2*4+2],
-                    subtextures[2*4+3]
-                }));
+            animation.addAnimation(Animations.FacingDownWalk, new SpriteAnimation(new List<Subtexture>() {
+                subtextures[2*4+0],
+                subtextures[2*4+1],
+                subtextures[2*4+2],
+                subtextures[2*4+3]
+            }));
 
-            animation.addAnimation(Animations.FacingRightIdle, new SpriteAnimation(new List<Subtexture>()
-                {
-                    subtextures[3*4+2]
-                }));
+            animation.addAnimation(Animations.FacingRightIdle, new SpriteAnimation(new List<Subtexture>() {
+                subtextures[3*4+2]
+            }));
 
-            animation.addAnimation(Animations.FacingRightWalk, new SpriteAnimation(new List<Subtexture>()
-                {
-                    subtextures[3*4+0],
-                    subtextures[3*4+1],
-                    subtextures[3*4+2],
-                    subtextures[3*4+3]
-                }));
+            animation.addAnimation(Animations.FacingRightWalk, new SpriteAnimation(new List<Subtexture>() {
+                subtextures[3*4+0],
+                subtextures[3*4+1],
+                subtextures[3*4+2],
+                subtextures[3*4+3]
+            }));
         }
         #endregion
     }

@@ -51,7 +51,7 @@ namespace herdburglar
                 animation.play(Animations.Exploding);
                 sound.Play();
 
-                alerter.alert(this);
+                alerter.alert(this, alertBull: false);
             });
 
             distraction.events.addObserver(DelayedDistraction.Events.Finished, () => {
@@ -77,25 +77,23 @@ namespace herdburglar
             var subtextures = Subtexture.subtexturesFromAtlas(texture, 16, 18);
 
             animation = addComponent(new Sprite<Animations>(subtextures[0]));
-            animation.addAnimation(Animations.Fuse, new SpriteAnimation(new List<Subtexture>()
-                {
-                    subtextures[0]
-                }));
+            animation.addAnimation(Animations.Fuse, new SpriteAnimation(new List<Subtexture>() {
+                subtextures[0]
+            }));
 
-            animation.addAnimation(Animations.Exploding, new SpriteAnimation(new List<Subtexture>()
-                {
-                    subtextures[1],
-                    subtextures[2],
-                    subtextures[3],
-                    subtextures[4],
-                    subtextures[5],
-                    subtextures[6],
-                    subtextures[7],
-                    subtextures[8],
-                    subtextures[9],
-                    subtextures[10],
-                    subtextures[11]
-                }));
+            animation.addAnimation(Animations.Exploding, new SpriteAnimation(new List<Subtexture>() {
+                subtextures[1],
+                subtextures[2],
+                subtextures[3],
+                subtextures[4],
+                subtextures[5],
+                subtextures[6],
+                subtextures[7],
+                subtextures[8],
+                subtextures[9],
+                subtextures[10],
+                subtextures[11]
+            }));
         }
         #endregion
     }

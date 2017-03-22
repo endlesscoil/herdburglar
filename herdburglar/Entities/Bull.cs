@@ -15,10 +15,10 @@ namespace herdburglar
 {
     public class Bull : Entity
     {
-        private BullController controller = null;
-        private BullController.Orientation orientation;
+        private CowController controller = null;
+        private CowController.Orientation orientation;
 
-        public Bull(BullController.Orientation orientation = BullController.Orientation.Right)
+        public Bull(CowController.Orientation orientation = CowController.Orientation.Right)
         {
             this.orientation = orientation;
         }
@@ -29,7 +29,7 @@ namespace herdburglar
             base.onAddedToScene();
 
             tag = (int)Tags.Bull;
-            controller = addComponent(new BullController() { orientation = orientation });
+            controller = addComponent(new CowController() { orientation = orientation, watchForDistractions = false });
         }
 
         public override void onRemovedFromScene()
