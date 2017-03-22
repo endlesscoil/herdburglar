@@ -53,6 +53,8 @@
     <Compile Include="Components\Distractions\DelayedDistraction.cs" />
     <Compile Include="Components\Distractions\MovingDistraction.cs" />
     <Compile Include="Entities\Decoy.cs" />
+    <Compile Include="Entities\Bull.cs" />
+    <Compile Include="Components\Controllers\BullController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">

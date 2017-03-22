@@ -80,7 +80,7 @@
  </objectgroup>
  <objectgroup name="spawns" opacity="0.64">
   <object id="1" name="Start" type="BurglarSpawn" x="64" y="64" width="64" height="64"/>
-  <object id="2" name="Cow1" type="CowSpawn" x="320" y="320" width="64" height="64">
+  <object id="2" name="Bull1" type="BullSpawn" x="320" y="320" width="64" height="64">
    <properties>
     <property name="orientation" value="Left"/>
    </properties>

@@ -99,12 +99,15 @@ namespace herdburglar
                 switch (obj.type)
                 {
                     case "BurglarSpawn":
+                    {
                         var burglar = new Burglar();
                         burglar.transform.position = objPosition;
                         addEntity(burglar);
                         break;
+                    }
 
                     case "CowSpawn":
+                    {
                         var orientation = CowController.Orientation.Right;
                         if (obj.properties.ContainsKey("orientation"))
                             orientation = CowController.getOrientationFromName(obj.properties["orientation"]);
@@ -114,12 +117,28 @@ namespace herdburglar
                         cow.name = obj.name;
                         addEntity(cow);
                         break;
+                    }
+
+                    case "BullSpawn":
+                    {
+                        var orientation = BullController.Orientation.Right;
+                        if (obj.properties.ContainsKey("orientation"))
+                            orientation = BullController.getOrientationFromName(obj.properties["orientation"]);
+
+                        var bull = new Bull(orientation: orientation);
+                        bull.transform.position = objPosition;
+                        bull.name = obj.name;
+                        addEntity(bull);
+                        break;
+                    }
 
                     case "IdolSpawn":
+                    {
                         var idol = new Idol();
                         idol.transform.position = objPosition;
                         addEntity(idol);
                         break;
+                    }
 
                     default:
                         break;

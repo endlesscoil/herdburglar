@@ -6,6 +6,7 @@ namespace herdburglar
 	{
 		Burglar,
 		Cow,
+        Bull,
         Idol,
         Distraction
 	}
