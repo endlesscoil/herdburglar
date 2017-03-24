@@ -93,3 +93,6 @@
 /processorParam:Quality=Best
 /build:sound/cow.wav
 
+#begin nez/effects/transitions/Wind.mgfxo
+/copy:nez/effects/transitions/Wind.mgfxo
+

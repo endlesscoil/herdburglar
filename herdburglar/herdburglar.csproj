@@ -54,6 +54,7 @@
     <Compile Include="Components\Distractions\MovingDistraction.cs" />
     <Compile Include="Entities\Decoy.cs" />
     <Compile Include="Entities\Bull.cs" />
+    <Compile Include="Scenes\Title.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">

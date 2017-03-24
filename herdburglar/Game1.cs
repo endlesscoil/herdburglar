@@ -24,7 +24,7 @@ namespace herdburglar
 			Core.exitOnEscapeKeypress = false;	// HACK: Because mono on linux is obnoxious.
 
 			//Content.RootDirectory = "Content";
-			scene = new Playground();
+			scene = new Title();
 		}
 	}
 }
