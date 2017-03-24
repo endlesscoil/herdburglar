@@ -12,7 +12,7 @@ using Nez.Sprites;
 
 using herdburglar.Components.Controllers;
 
-namespace herdburglar
+namespace herdburglar.Scenes
 {
     class Playground : Scene
     {

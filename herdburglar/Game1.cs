@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework.Input;
 
 using Nez;
 
+using herdburglar.Scenes;
+
 namespace herdburglar
 {
 	/// <summary>
